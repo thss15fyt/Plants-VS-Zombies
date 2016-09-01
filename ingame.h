@@ -16,6 +16,7 @@
 #include "zombie.h"
 #include "randnumber.h"
 #include "peaball.h"
+#include "sun.h"
 
 namespace Ui {
 class InGame;
@@ -37,6 +38,10 @@ protected:
 
 private slots:
     void mUpdateSlot();
+
+    void mDropSunSlot();
+    void mDeleteSunSlot();
+
     void mBlockClickedSlot(int);
     void mCardClickedSlot(plantName);
     void on_menuButton_clicked();
@@ -76,6 +81,11 @@ private:
     Card **mCard;
 
     RandNumber* mRandRow;
+    RandNumber* mRandSunX;
+    RandNumber* mRandSunY;
+
+    QTimer *mSunTimer;
+    QVector<Sun*> mSun;
 
     void mPlayBgm();
     void mBeginMove();
@@ -89,6 +99,7 @@ private:
     void mInitPlantCostSun();
     void mInitCard();
     void mInitCursor();
+    void mInitRand();
 
     void mShowZombieUpdate();
     void mPlantUpdate();
@@ -99,6 +110,7 @@ private:
     void mPeaBallMeetZombieUpdate(PeaBall*&);
 
     int mFindFirstZombie(QVector<Zombie*>);
+    void mProduceSun(Plant*);
 };
 
 #endif // INGAME_H

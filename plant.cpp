@@ -1,6 +1,7 @@
 #include "plant.h"
 #include "FieldSize.h"
 #include "PlantSize.h"
+#include <QDebug>
 
 Plant::Plant(int row, int column, plantName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(column),
@@ -18,7 +19,7 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         mPlantLabel->setGeometry(0, 0, SUNFLOWER_W, SUNFLOWER_H);
         mMovieNum = 1;
         mMovieIndex = 1;
-        mSpecialCDTime = 24;    //produce sun
+        mSpecialCDTime = 8;    //produce sun, first 8s, the others 24s
         HP = 300;
         mPlantCurrentMovie = new QMovie(":/Plants/SunFlower/src/plants/SunFlower/SunFlower1.gif");
         break;
@@ -56,6 +57,9 @@ void Plant::mUpdate()
 {
     switch(mName)
     {
+    case sunFlower:
+        mSunFlowerUpdate();
+        break;
     case peaShooter:
         mPeaShooterUpdate();
         break;
@@ -92,6 +96,11 @@ void Plant::mNextMovie()
     }
     mPlantLabel->setMovie(mPlantCurrentMovie);
     mPlantCurrentMovie->start();
+}
+
+void Plant::mSunFlowerUpdate()
+{
+    mSpecialCDTime -= 0.064;
 }
 
 void Plant::mPeaShooterUpdate()

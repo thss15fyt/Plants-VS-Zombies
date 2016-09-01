@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QMovie>
+#include "sun.h"
 
 enum plantName{null, sunFlower, peaShooter, wallNut};
 
@@ -29,8 +30,10 @@ public:
     void mNextMovie();
 
     void mUpdate();
+    void mSunFlowerUpdate();
     void mPeaShooterUpdate();
     void mWallNutUpdate();
+
 signals:
 
 public slots:

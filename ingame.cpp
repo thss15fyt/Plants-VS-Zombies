@@ -33,12 +33,12 @@ InGame::InGame(QWidget *parent) :
     mInitPlantCostSun();
     mInitCard();
     mInitCursor();
+    mInitRand();
+
     this->setMouseTracking(true);
 
     QObject::connect(this, SIGNAL(mGameStateChanged(gameStateType)),
                      parent, SLOT(mGameStateChangedSlot(gameStateType)));
-
-    mRandRow = new RandNumber(1, 5);
 }
 
 /*****Update functions*****/
@@ -76,7 +76,6 @@ void InGame::mShowZombieUpdate()
     }
 }
 
-
 void InGame::mPlantUpdate()
 {
     for(int i = 0; i < 5; i++)
@@ -87,6 +86,8 @@ void InGame::mPlantUpdate()
             {
                 mPlants[i][j]->mUpdate();
                 mPlantFindZombieUpdate(mPlants[i][j]);
+                if(mPlants[i][j]->mName == sunFlower && mPlants[i][j]->mSpecialCDTime <= 0)
+                    mProduceSun(mPlants[i][j]);
                 //Death judge
                 if(mPlants[i][j]->HP <= 0)
                 {
@@ -257,6 +258,11 @@ void InGame::mInitTimer()
     mTimer->setInterval(64);
     mTimer->setSingleShot(false);
     QObject::connect(mTimer, SIGNAL(timeout()), this, SLOT(mUpdateSlot()));
+
+    mSunTimer = new QTimer(this);
+    mSunTimer->setInterval(5000);
+    mSunTimer->setSingleShot(false);
+    QObject::connect(mSunTimer, SIGNAL(timeout()), this, SLOT(mDropSunSlot()));
 }
 
 void InGame::mInitSpade()
@@ -278,7 +284,6 @@ void InGame::mBeginMove()
     ui->background->move(0, 0);
     QPropertyAnimation* bgMove;
     bgMove = new QPropertyAnimation(ui->background, "pos");
-    QObject::connect(bgMove, SIGNAL(finished()), mTimer, SLOT(start()));
     bgMove->setDuration(4500);
     bgMove->setStartValue(QPoint(0, 0));
     bgMove->setKeyValueAt(0.25, QPoint(0, 0));
@@ -286,6 +291,9 @@ void InGame::mBeginMove()
     bgMove->setKeyValueAt(0.75, QPoint(-500, 0));
     bgMove->setEndValue(QPoint(-190, 0));
     bgMove->start();
+    //if there's a new move, it sends the signal
+    QObject::connect(bgMove, SIGNAL(finished()), mTimer, SLOT(start()));
+    QObject::connect(bgMove, SIGNAL(finished()), mSunTimer, SLOT(start()));
 }
 
 void InGame::mInitPreviewZombies()
@@ -389,6 +397,13 @@ void InGame::mousePressEvent(QMouseEvent *e)
     }
 }
 
+void InGame::mInitRand()
+{
+    mRandRow = new RandNumber(1, 5);
+    mRandSunX = new RandNumber(60, 700);
+    mRandSunY = new RandNumber(100, 480);
+}
+
 /******click slots of widgets in ui******/
 
 //plants in&out
@@ -487,6 +502,44 @@ int InGame::mFindFirstZombie(QVector<Zombie*> v)
     return n;
 }
 
+/******sun******/
+void InGame::mDropSunSlot()
+{
+    Sun* sun;
+    sun = new Sun(QPoint(mRandSunX->getRandNumber(), mRandSunY->getRandNumber()), true, this);
+    sun->show();
+    QObject::connect(sun, SIGNAL(mDeleteThis()), this, SLOT(mDeleteSunSlot()));
+    mSun.append(sun);
+}
+
+void InGame::mDeleteSunSlot()
+{
+    for(int i = 0; i < mSun.size(); i++)
+    {
+        if(mSun[i]->isReach)
+        {
+            delete mSun[i];
+            mSun.erase(mSun.begin() + i);
+            mSunNum += 25;
+            ui->sunNum->setText(QString::number(mSunNum));
+        }
+        else if(mSun[i]->isToDie)
+        {
+            delete mSun[i];
+            mSun.erase(mSun.begin() + i);
+        }
+    }
+}
+
+void InGame::mProduceSun(Plant *plant)
+{
+    Sun* sun;
+    sun = new Sun(plant->pos(), false, this);
+    sun->show();
+    QObject::connect(sun, SIGNAL(mDeleteThis()), this, SLOT(mDeleteSunSlot()));
+    mSun.append(sun);
+    plant->mSpecialCDTime = 24;
+}
 
 /****~func******/
 InGame::~InGame()

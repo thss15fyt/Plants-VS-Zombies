@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     block.cpp \
     zombie.cpp \
     randnumber.cpp \
-    peaball.cpp
+    peaball.cpp \
+    sun.cpp
 
 HEADERS  += pvz.h \
     welcome.h \
@@ -41,7 +42,8 @@ HEADERS  += pvz.h \
     randnumber.h \
     WeaponSize.h \
     peaball.h \
-    PeaBallSize.h
+    PeaBallSize.h \
+    sun.h
 
 FORMS    += pvz.ui \
     welcome.ui \
