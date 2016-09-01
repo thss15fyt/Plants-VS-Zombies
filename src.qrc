@@ -1,0 +1,85 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/interface/beginBackground.jpg</file>
+        <file>src/interface/SelectorScreenChallenges.png</file>
+        <file>src/interface/SelectorScreenHelp.png</file>
+        <file>src/interface/SelectorScreenMini.png</file>
+        <file>src/interface/SelectorScreenOptions.png</file>
+        <file>src/interface/SelectorScreenQuit.png</file>
+        <file>src/interface/SelectorScreenStartAdventure.png</file>
+        <file>src/interface/SelectorScreenWoodSign.png</file>
+        <file>src/interface/SelectorScreenWoodSignNameChange.png</file>
+        <file>src/interface/HelpBackground.png</file>
+        <file>src/interface/HelpMainMenu.png</file>
+        <file>src/interface/QuitDialog.png</file>
+        <file>src/interface/QuitCancelButton.png</file>
+        <file>src/interface/QuitGameButton.png</file>
+        <file>src/interface/Background1.jpg</file>
+        <file>src/interface/ZombiesHand.gif</file>
+        <file>src/interface/InGameMenu.png</file>
+        <file>src/interface/cardBox.png</file>
+        <file>src/interface/SpadeBox.png</file>
+        <file>src/interface/Spade.png</file>
+        <file>src/interface/EmptyCard.png</file>
+    </qresource>
+    <qresource prefix="/music">
+        <file>src/music/ZombiesLaugh.wav</file>
+        <file>src/music/Faster.wav</file>
+        <file>src/music/LookupattheSky.wav</file>
+        <file>src/music/ChoosePlantsBGM.wav</file>
+    </qresource>
+    <qresource prefix="/Zombies/Zombie">
+        <file>src/zombies/Zombie/0.gif</file>
+        <file>src/zombies/Zombie/1.gif</file>
+        <file>src/zombies/Zombie/2.gif</file>
+        <file>src/zombies/Zombie/3.gif</file>
+        <file>src/zombies/Zombie/BoomDie.gif</file>
+        <file>src/zombies/Zombie/Zombie.gif</file>
+        <file>src/zombies/Zombie/Zombie2.gif</file>
+        <file>src/zombies/Zombie/Zombie3.gif</file>
+        <file>src/zombies/Zombie/ZombieAttack.gif</file>
+        <file>src/zombies/Zombie/ZombieDie.gif</file>
+        <file>src/zombies/Zombie/ZombieHead.gif</file>
+        <file>src/zombies/Zombie/ZombieLostHead.gif</file>
+        <file>src/zombies/Zombie/ZombieLostHeadAttack.gif</file>
+    </qresource>
+    <qresource prefix="/Zombies/ConeHeadZombie">
+        <file>src/zombies/ConeheadZombie/0.gif</file>
+        <file>src/zombies/ConeheadZombie/1.gif</file>
+        <file>src/zombies/ConeheadZombie/ConeheadZombie.gif</file>
+        <file>src/zombies/ConeheadZombie/ConeheadZombieAttack.gif</file>
+    </qresource>
+    <qresource prefix="/Zombies/BucketHeadZombie">
+        <file>src/zombies/BucketheadZombie/0.gif</file>
+        <file>src/zombies/BucketheadZombie/1.gif</file>
+        <file>src/zombies/BucketheadZombie/BucketheadZombie.gif</file>
+        <file>src/zombies/BucketheadZombie/BucketheadZombieAttack.gif</file>
+    </qresource>
+    <qresource prefix="/Plants/PeaShooter">
+        <file>src/plants/Peashooter/Peashooter.gif</file>
+        <file>src/plants/Peashooter/PeashooterCard.png</file>
+        <file>src/plants/Peashooter/0.png</file>
+        <file>src/plants/Peashooter/PB00.gif</file>
+    </qresource>
+    <qresource prefix="/Plants/SunFlower">
+        <file>src/plants/SunFlower/SunFlower.gif</file>
+        <file>src/plants/SunFlower/SunFlower1.gif</file>
+        <file>src/plants/SunFlower/SunFlower2.gif</file>
+        <file>src/plants/SunFlower/SunFlowerCard.png</file>
+        <file>src/plants/SunFlower/0.png</file>
+    </qresource>
+    <qresource prefix="/Plants/WallNut">
+        <file>src/plants/WallNut/BoomWallNutRoll.gif</file>
+        <file>src/plants/WallNut/HugeWallNutRoll.gif</file>
+        <file>src/plants/WallNut/Wallnut_cracked1.gif</file>
+        <file>src/plants/WallNut/Wallnut_cracked2.gif</file>
+        <file>src/plants/WallNut/WallNut.gif</file>
+        <file>src/plants/WallNut/WallNutCard.png</file>
+        <file>src/plants/WallNut/WallNutRoll.gif</file>
+        <file>src/plants/WallNut/0.gif</file>
+        <file>src/plants/WallNut/1.gif</file>
+    </qresource>
+    <qresource prefix="/txt">
+        <file>1.txt</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Welcome</class>
+ <widget class="QWidget" name="Welcome">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#background
+{
+	background-image:url(:/src/interface/beginBackground.jpg);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Adventure">
+   <property name="geometry">
+    <rect>
+     <x>457</x>
+     <y>59</y>
+     <width>356</width>
+     <height>157</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Adventure
+{
+	border: none;
+	background-image : url(:/src/interface/SelectorScreenStartAdventure.png)
+}
+#Adventure:hover
+{
+	background-position : left bottom;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Mini">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>190</y>
+     <width>332</width>
+     <height>142</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Mini
+{
+	background-color : transparent;
+	background-image: url(:/src/interface/SelectorScreenMini.png);
+}
+#Mini:hover
+{
+	background-position : left bottom;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Challenge">
+   <property name="geometry">
+    <rect>
+     <x>465</x>
+     <y>305</y>
+     <width>308</width>
+     <height>132</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Challenge
+{
+	background-color: transparent;
+	background-image: url(:/src/interface/SelectorScreenChallenges.png);
+}
+#Challenge:hover
+{
+	background-position: left bottom;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="WoodSign">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>0</y>
+     <width>293</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#WoodSign
+{
+	background-image: url(:/src/interface/SelectorScreenWoodSign.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Options">
+   <property name="geometry">
+    <rect>
+     <x>641</x>
+     <y>489</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Options
+{
+	border-style: flat;
+}
+#Options:hover
+{
+	background-image: url(:/src/interface/SelectorScreenOptions.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Help">
+   <property name="geometry">
+    <rect>
+     <x>725</x>
+     <y>524</y>
+     <width>60</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>SplitHCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Help
+{
+	border-style: flat;
+}
+#Help:hover
+{
+	background-image: url(:/src/interface/SelectorScreenHelp.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Quit">
+   <property name="geometry">
+    <rect>
+     <x>812</x>
+     <y>516</y>
+     <width>52</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Quit
+{
+	border-style : flat;
+}
+#Quit:hover
+{
+	background-image: url(:/src/interface/SelectorScreenQuit.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="NameChange">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>140</y>
+     <width>291</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#NameChange
+{
+	border-style: flat;
+	background-image: url(:/src/interface/SelectorScreenWoodSignNameChange.png);
+}
+#NameChange:hover
+{
+	background-position: left bottom;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ID_name">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>90</y>
+     <width>221</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>手札体-简</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#ID_name
+{
+	color:rgb(253, 255, 145)
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignHCenter|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="QuitDialog">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>600</y>
+     <width>400</width>
+     <height>237</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#QuitDialog
+{
+	background-image: url(:/src/interface/QuitDialog.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="QuitGame">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>600</y>
+     <width>164</width>
+     <height>47</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#QuitGame
+{
+	background-image: url(:/src/interface/QuitGameButton.png);
+	border-style: flat;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="QuitCancel">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>600</y>
+     <width>166</width>
+     <height>47</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#QuitCancel
+{
+	border-style: flat;
+	background-image: url(:/src/interface/QuitCancelButton.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="hideAll" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>Adventure</zorder>
+  <zorder>Mini</zorder>
+  <zorder>Challenge</zorder>
+  <zorder>WoodSign</zorder>
+  <zorder>Options</zorder>
+  <zorder>Help</zorder>
+  <zorder>Quit</zorder>
+  <zorder>NameChange</zorder>
+  <zorder>ID_name</zorder>
+  <zorder>QuitDialog</zorder>
+  <zorder>hideAll</zorder>
+  <zorder>QuitCancel</zorder>
+  <zorder>QuitGame</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

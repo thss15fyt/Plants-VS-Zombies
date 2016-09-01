@@ -1,0 +1,16 @@
+#ifndef PLANTSIZE_H
+#define PLANTSIZE_H
+
+#define PEASHOOTER_W 71
+#define PEASHOOTER_H 71
+#define BLOCK_W_PEASHOOTER_SPACE 8
+
+#define SUNFLOWER_W 73
+#define SUNFLOWER_H 74
+#define BLOCK_W_SUNFLOWER_SPACE 8
+
+#define WALLNUT_W 65
+#define WALLNUT_H 73
+#define BLOCK_W_WALLNUT_SPACE 10
+
+#endif // PLANTSIZE_H
