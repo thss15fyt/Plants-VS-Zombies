@@ -1,6 +1,5 @@
 #include "pvz.h"
 #include <QApplication>
-#include <randnumber.h>
 
 int main(int argc, char *argv[])
 {

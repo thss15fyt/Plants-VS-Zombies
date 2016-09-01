@@ -59,7 +59,7 @@
         <file>src/plants/Peashooter/Peashooter.gif</file>
         <file>src/plants/Peashooter/PeashooterCard.png</file>
         <file>src/plants/Peashooter/0.png</file>
-        <file>src/plants/Peashooter/PB00.gif</file>
+        <file>src/plants/Peashooter/PB00.png</file>
     </qresource>
     <qresource prefix="/Plants/SunFlower">
         <file>src/plants/SunFlower/SunFlower.gif</file>

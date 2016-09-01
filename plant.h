@@ -20,7 +20,7 @@ public:
     QMovie* mPlantCurrentMovie;
     int mMovieIndex;
     int mMovieNum;
-    int mCDTime;
+    double mSpecialCDTime;
     int HP;
 
     bool isAttacked;
@@ -29,6 +29,7 @@ public:
     void mNextMovie();
 
     void mUpdate();
+    void mPeaShooterUpdate();
     void mWallNutUpdate();
 signals:
 

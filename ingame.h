@@ -15,7 +15,7 @@
 #include "block.h"
 #include "zombie.h"
 #include "randnumber.h"
-
+#include "peaball.h"
 
 namespace Ui {
 class InGame;
@@ -68,6 +68,8 @@ private:
     QPixmap** mPlantCursorPixmap;
     Plant ***mPlants;
 
+    QVector<PeaBall*> mPeaBall[5];
+
     Block*** mBlock;
     QSignalMapper *mBlockMapper;
 
@@ -89,8 +91,14 @@ private:
     void mInitCursor();
 
     void mShowZombieUpdate();
-    void mZombieMeetPlantUpdate();
     void mPlantUpdate();
+    void mZombieUpdate();
+    void mPeaBallUpdate();
+    void mZombieMeetPlantUpdate();
+    void mPlantFindZombieUpdate(Plant*);
+    void mPeaBallMeetZombieUpdate(PeaBall*&);
+
+    int mFindFirstZombie(QVector<Zombie*>);
 };
 
 #endif // INGAME_H

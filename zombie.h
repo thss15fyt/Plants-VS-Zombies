@@ -21,6 +21,7 @@ public:
     int mx, my;
     int mHSpace;
     int ATK;
+    int HP;
     QLabel* mZombieLabel;
     QMovie* mZombieMovie;
     zombieName mZombieName;
@@ -28,6 +29,8 @@ public:
 
     void mZombieNormal();
     void mZombieAttack();
+
+    void mUpdate();
 
 signals:
 

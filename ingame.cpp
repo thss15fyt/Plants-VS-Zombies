@@ -6,6 +6,7 @@
 #include "zombie.h"
 #include "FieldSize.h"
 #include "ZombieSize.h"
+#include "PeaBallSize.h"
 #include <QPropertyAnimation>
 #include <QPoint>
 #include <QMouseEvent>
@@ -13,6 +14,7 @@
 #include <QSignalMapper>
 #include <QFile>
 #include <QTextStream>
+#include <qalgorithms.h>
 #include <QDebug>
 
 InGame::InGame(QWidget *parent) :
@@ -31,7 +33,6 @@ InGame::InGame(QWidget *parent) :
     mInitPlantCostSun();
     mInitCard();
     mInitCursor();
-
     this->setMouseTracking(true);
 
     QObject::connect(this, SIGNAL(mGameStateChanged(gameStateType)),
@@ -47,8 +48,9 @@ void InGame::mUpdateSlot()
     mTime += 0.064;
 
     mShowZombieUpdate();
-    mZombieMeetPlantUpdate();
     mPlantUpdate();
+    mZombieUpdate();
+    mPeaBallUpdate();
 }
 
 void InGame::mShowZombieUpdate()
@@ -63,13 +65,72 @@ void InGame::mShowZombieUpdate()
             p->show();
             mZombies[n - 1].append(p);
             mShowZombies++;
-            for(int k = n + 1; k < 5; k++)
+            for(int i = n; i < 5; i++)
             {
-                for(int m = 0; m < mZombies[k].length(); m++)
+                for(int j = 0; j < mZombies[i].length(); j++)
                 {
-                    mZombies[k][m]->raise();
+                    mZombies[i][j]->raise();
                 }
             }
+        }
+    }
+}
+
+
+void InGame::mPlantUpdate()
+{
+    for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            if(mPlants[i][j] != NULL)
+            {
+                mPlants[i][j]->mUpdate();
+                mPlantFindZombieUpdate(mPlants[i][j]);
+                //Death judge
+                if(mPlants[i][j]->HP <= 0)
+                {
+                    delete mPlants[i][j];
+                    mPlants[i][j] = NULL;
+                    mBlock[i][j]->isEmpty = true;
+                }
+            }
+        }
+    }
+}
+
+void InGame::mZombieUpdate()
+{
+    for(int i = 0; i < 5; i++)
+    {
+        //qSort(mZombies[i].begin(), mZombies[i].end());  //make sure to find the first zombie
+                                                        //overload operator <
+        for(int j = 0; j < mZombies[i].length(); j++)
+        {
+            mZombies[i][j]->mUpdate();
+            //Death judge
+            if(mZombies[i][j]->HP <= 0)
+            {
+                if(mZombies[i][j]->meetPlant)
+                {
+                    mPlants[mZombies[i][j]->mRow - 1][mZombies[i][j]->mColumn - 1]->isAttacked = false;
+                }
+                delete mZombies[i][j];
+                mZombies[i].erase(mZombies[i].begin() + j);
+            }
+        }
+    }
+    mZombieMeetPlantUpdate();
+}
+
+void InGame::mPeaBallUpdate()
+{
+    for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < mPeaBall[i].length(); j++)
+        {
+            mPeaBall[i][j]->mUpdate();
+            mPeaBallMeetZombieUpdate(mPeaBall[i][j]);
         }
     }
 }
@@ -110,34 +171,63 @@ void InGame::mZombieMeetPlantUpdate()
     }
 }
 
-void InGame::mPlantUpdate()
+void InGame::mPlantFindZombieUpdate(Plant *plant)
 {
-    for(int i = 0; i < 5; i++)
+    switch(plant->mName)
     {
-        for(int j = 0; j < 9; j++)
+    case peaShooter:
+        if(mZombies[plant->mRow - 1].length() > 0 && plant->mSpecialCDTime <= 0)
         {
-            if(mPlants[i][j] != NULL)
+            PeaBall* pb;
+            pb = new PeaBall(peaBall, plant->mRow, plant->mColumn, this);
+            pb->show();
+            mPeaBall[plant->mRow - 1].append(pb);
+            plant->mSpecialCDTime = 1.4;
+        }
+        break;
+    }
+}
+
+void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
+{
+    int row = peaball->mRow;
+    int i = mPeaBall[row - 1].count(peaball);
+    if(peaball->mx > 900)
+    {
+        for(int i = 0; i < mPeaBall[row - 1].size(); i++)
+        {
+            if(mPeaBall[row - 1][i] == peaball)
             {
-                mPlants[i][j]->mUpdate();
-                //Death judge
-                if(mPlants[i][j]->HP <= 0)
+                delete peaball;
+                mPeaBall[row - 1].erase(mPeaBall[row - 1].begin() + i);
+            }
+        }
+    }
+    if(mZombies[row - 1].length() != 0)
+    {
+        int first = mFindFirstZombie(mZombies[row - 1]);
+        if((peaball->mx + PEABALL_WIDTH) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
+        {
+            //zombie -HP
+            mZombies[row - 1][first]->HP -= peaball->ATK;
+            //delete the peaBall
+            for(int i = 0; i < mPeaBall[row - 1].size(); i++)
+            {
+                if(mPeaBall[row - 1][i] == peaball)
                 {
-                    delete mPlants[i][j];
-                    mPlants[i][j] = NULL;
-                    mBlock[i][j]->isEmpty = true;
+                    delete peaball;
+                    mPeaBall[row - 1].erase(mPeaBall[row - 1].begin() + i);
                 }
             }
         }
     }
 }
 
-
-
-
 /*****Funstions for initing*****/
 
 void InGame::mInitZombieTime()
 {
+    mShowZombies = 0;
     QFile file(":/txt/1.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -384,6 +474,19 @@ void InGame::on_menuButton_clicked()
 {
     emit mGameStateChanged(welcome);
 }
+
+/***tool func***/
+int InGame::mFindFirstZombie(QVector<Zombie*> v)
+{
+    int n = 0;
+    for(int i = 0; i < v.size(); i++)
+    {
+        if(v[i]->mx < v[n]->mx)
+            n = i;
+    }
+    return n;
+}
+
 
 /****~func******/
 InGame::~InGame()

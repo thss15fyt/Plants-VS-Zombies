@@ -20,6 +20,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         mStateIndex = 1;
         mHSpace = ZOMBIE_H_SPACE;
         ATK = 6;
+        HP = 270;
         break;
     case coneHeadZombie:
         this->setGeometry(900, FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE, ZOMBIE_W, ZOMBIE_H);
@@ -29,6 +30,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         mStateIndex = 1;
         mHSpace = CONE_ZOMBIE_H_SPACE;
         ATK = 6;
+        HP = 640;
         break;
     case bucketHeadZombie:
         this->setGeometry(900, FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE, ZOMBIE_W, ZOMBIE_H);
@@ -38,6 +40,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         mStateIndex = 1;
         mHSpace = BUCKET_ZOMBIE_H_SPACE;
         ATK = 6;
+        HP = 1370;
         break;
     }
     mZombieLabel->setMovie(mZombieMovie);
@@ -82,6 +85,11 @@ void Zombie::mZombieAttack()
     mZombieMovie->start();
 }
 
+
+void Zombie::mUpdate()
+{
+
+}
 
 Zombie::~Zombie()
 {

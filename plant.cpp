@@ -18,7 +18,7 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         mPlantLabel->setGeometry(0, 0, SUNFLOWER_W, SUNFLOWER_H);
         mMovieNum = 1;
         mMovieIndex = 1;
-        mCDTime = 0;
+        mSpecialCDTime = 24;    //produce sun
         HP = 300;
         mPlantCurrentMovie = new QMovie(":/Plants/SunFlower/src/plants/SunFlower/SunFlower1.gif");
         break;
@@ -28,7 +28,7 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         mPlantLabel->setGeometry(0, 0, PEASHOOTER_W, PEASHOOTER_H);
         mMovieNum = 1;
         mMovieIndex = 1;
-        mCDTime = 0;
+        mSpecialCDTime = 1.4;   //fire a peaBall
         HP = 300;
         mPlantCurrentMovie = new QMovie(":/Plants/PeaShooter/src/plants/Peashooter/Peashooter.gif");
         break;
@@ -38,7 +38,7 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         mPlantLabel->setGeometry(0, 0, WALLNUT_W ,WALLNUT_H);
         mMovieNum = 3;
         mMovieIndex = 1;
-        mCDTime = 0;
+        mSpecialCDTime = 0;     //nothing
         HP = 4000;
         mPlantCurrentMovie = new QMovie(":/Plants/WallNut/src/plants/WallNut/WallNut.gif");
         break;
@@ -56,6 +56,9 @@ void Plant::mUpdate()
 {
     switch(mName)
     {
+    case peaShooter:
+        mPeaShooterUpdate();
+        break;
     case wallNut:
         mWallNutUpdate();
         break;
@@ -89,6 +92,12 @@ void Plant::mNextMovie()
     }
     mPlantLabel->setMovie(mPlantCurrentMovie);
     mPlantCurrentMovie->start();
+}
+
+void Plant::mPeaShooterUpdate()
+{
+    if(mSpecialCDTime > 0)
+        mSpecialCDTime -= 0.064;
 }
 
 void Plant::mWallNutUpdate()
