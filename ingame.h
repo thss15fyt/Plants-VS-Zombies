@@ -108,6 +108,7 @@ private:
     void mZombieMeetPlantUpdate();
     void mPlantFindZombieUpdate(Plant*);
     void mPeaBallMeetZombieUpdate(PeaBall*&);
+    void mCardUpdate();
 
     int mFindFirstZombie(QVector<Zombie*>);
     void mProduceSun(Plant*);

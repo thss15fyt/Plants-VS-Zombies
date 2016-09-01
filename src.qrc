@@ -22,6 +22,8 @@
         <file>src/interface/Spade.png</file>
         <file>src/interface/EmptyCard.png</file>
         <file>src/interface/Sun.gif</file>
+        <file>src/interface/NotEnoughSun.png</file>
+        <file>src/interface/InCD.png</file>
     </qresource>
     <qresource prefix="/music">
         <file>src/music/ZombiesLaugh.wav</file>

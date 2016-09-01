@@ -13,6 +13,8 @@ public:
     explicit Card(int index, plantName name, QWidget *parent = 0);
     int mIndex;
     int mCostSun;
+    double mCDTime;
+    double mLeftTime;
     plantName mName;
     QPushButton* mCardButton;
     QLabel* mCardLabel;

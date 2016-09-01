@@ -5,7 +5,7 @@
 
 
 Card::Card(int index, plantName name, QWidget *parent) :
-    QWidget(parent), mIndex(index), mName(name)
+    QWidget(parent), mIndex(index), mName(name), mLeftTime(0)
 {
     this->setGeometry(CARD_BEGIN_X + (index - 1) * CARD_WIDTH + (index - 1) * CARD_SPACE, CARD_BEGIN_Y,
                         CARD_WIDTH, CARD_HEIGHT);
@@ -29,23 +29,30 @@ Card::Card(int index, plantName name, QWidget *parent) :
     switch(name)
     {
     case null:
+        mCostSun = 0;
+        mCDTime = 0;
         break;
     case sunFlower:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/SunFlower/src/plants/SunFlower/SunFlowerCard.png)");
         mCostSun = 50;
+        mCDTime = 7.5;
         break;
     case peaShooter:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/PeaShooter/src/plants/Peashooter/PeashooterCard.png)");
         mCostSun = 100;
+        mCDTime = 7.5;
         break;
     case wallNut:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/WallNut/src/plants/WallNut/WallNutCard.png)");
         mCostSun = 50;
+        mCDTime = 30;
+        break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
 }
 
 void Card::mButtonClickedSlot()
 {
-    emit mButtonClicked(mName);
+    if(mLeftTime <= 0)
+        emit mButtonClicked(mName);
 }

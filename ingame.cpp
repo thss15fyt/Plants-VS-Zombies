@@ -51,6 +51,7 @@ void InGame::mUpdateSlot()
     mPlantUpdate();
     mZombieUpdate();
     mPeaBallUpdate();
+    mCardUpdate();
 }
 
 void InGame::mShowZombieUpdate()
@@ -220,6 +221,17 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
                     mPeaBall[row - 1].erase(mPeaBall[row - 1].begin() + i);
                 }
             }
+        }
+    }
+}
+
+void InGame::mCardUpdate()
+{
+    for(int i = 0; i < mPlantNum - 1; i++)
+    {
+        if(mCard[i]->mLeftTime > 0)
+        {
+            mCard[i]->mLeftTime -= 0.064;
         }
     }
 }
@@ -422,6 +434,14 @@ void InGame::mBlockClickedSlot(int n)
         mSunNum -= mPlantCostSun[mPlantName];
         mBlock[i][j]->isEmpty = false;
         ui->sunNum->setText(QString::number(mSunNum));
+        //set cards' CD
+        for(int n = 0; n < mPlantNum - 1; n++)
+        {
+            if(mCard[n]->mName == mPlantName)
+            {
+                mCard[n]->mLeftTime = mCard[n]->mCDTime;
+            }
+        }
         //raise zombies
         for(int k = i + 1; k < 5; k++)
         {
@@ -444,7 +464,6 @@ void InGame::mBlockClickedSlot(int n)
         this->setCursor(Qt::ArrowCursor);
         ui->SpadeBox->setStyleSheet("background-position: left top; background-image: url(://src/interface/SpadeBox.png);border:none;");
     }
-
 }
 
 //select plants cards
