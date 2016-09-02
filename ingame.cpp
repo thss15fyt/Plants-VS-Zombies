@@ -229,9 +229,18 @@ void InGame::mCardUpdate()
 {
     for(int i = 0; i < mPlantNum - 1; i++)
     {
+        //CD
         if(mCard[i]->mLeftTime > 0)
         {
             mCard[i]->mLeftTime -= 0.064;
+        }
+        if(mCard[i]->mCostSun > mSunNum)        //not enough sun
+        {
+            mCard[i]->mNotEnougnSun->show();
+        }
+        else if(mCard[i]->mCostSun <= mSunNum && mCard[i]->mLeftTime <= 0)
+        {
+            mCard[i]->mNotEnougnSun->hide();
         }
     }
 }
@@ -355,7 +364,7 @@ void InGame::mInitPlant()
 
 void InGame::mInitPlantCostSun()
 {
-    mSunNum = 1000;
+    mSunNum = 50;
     ui->sunNum->setText(QString::number(mSunNum));
 
     mPlantCostSun = new int[mPlantNum];
@@ -440,6 +449,9 @@ void InGame::mBlockClickedSlot(int n)
             if(mCard[n]->mName == mPlantName)
             {
                 mCard[n]->mLeftTime = mCard[n]->mCDTime;
+                mCard[n]->mNotEnougnSun->show();
+                mCard[n]->mInCD->show();
+                mCard[n]->cd->start();
             }
         }
         //raise zombies

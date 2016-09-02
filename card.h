@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QPropertyAnimation>
 #include "plant.h"
 
 class Card : public QWidget
@@ -19,6 +20,9 @@ public:
     QPushButton* mCardButton;
     QLabel* mCardLabel;
     QLabel* mCostSunLabel;
+    QLabel* mNotEnougnSun;
+    QLabel* mInCD;
+    QPropertyAnimation *cd;
 signals:
     void mButtonClicked(plantName);
 

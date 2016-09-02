@@ -2,7 +2,8 @@
 #include "plant.h"
 #include "FieldSize.h"
 #include "ingame.h"
-
+#include <QPropertyAnimation>
+#include <QRect>
 
 Card::Card(int index, plantName name, QWidget *parent) :
     QWidget(parent), mIndex(index), mName(name), mLeftTime(0)
@@ -25,6 +26,18 @@ Card::Card(int index, plantName name, QWidget *parent) :
     mCostSunLabel->setGeometry(CARD_COSTSUN_X, CARD_COSTSUN_Y,CARD_COSTSUN_W, CARD_COSTSUN_H);
     mCostSunLabel->setStyleSheet("font-size:12px;");
     mCostSunLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    mNotEnougnSun = new QLabel(this);
+    mNotEnougnSun->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
+    mNotEnougnSun->setStyleSheet("background-image: url(:/src/interface/NotEnoughSun.png)");
+    mNotEnougnSun->setAttribute(Qt::WA_TransparentForMouseEvents);
+    mNotEnougnSun->hide();
+
+    mInCD = new QLabel(this);
+    mInCD->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
+    mInCD->setStyleSheet("background-image: url(:/src/interface/InCD.png)");
+    mInCD->setAttribute(Qt::WA_TransparentForMouseEvents);
+    mInCD->hide();
 
     switch(name)
     {
@@ -49,6 +62,12 @@ Card::Card(int index, plantName name, QWidget *parent) :
         break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
+
+    cd = new QPropertyAnimation(mInCD,"geometry");
+    cd->setDuration(mCDTime * 1000);
+    cd->setStartValue(QRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
+    cd->setEndValue(QRect(0, 0, CARD_WIDTH, 0));
+
 }
 
 void Card::mButtonClickedSlot()
