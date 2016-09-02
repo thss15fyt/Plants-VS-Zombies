@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QMovie>
 
-enum zombieName{zombie, coneHeadZombie, bucketHeadZombie};
+enum zombieName{zombie, coneHeadZombie, bucketHeadZombie, poleVaultingZombie};
 
 class Zombie : public QWidget
 {
@@ -18,7 +18,8 @@ public:
     int mColumn;
     int mStateNum;
     int mStateIndex;
-    int mx, my;
+    double mx, my;
+    double mSpeed;
     int mHSpace;
     int ATK;
     int HP;
@@ -38,7 +39,7 @@ signals:
 
 public slots:
     void mAfterExplosionSlot();
-
+    void mNextMovie();
 };
 
 struct ZombieWithTime

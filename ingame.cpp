@@ -151,10 +151,17 @@ void InGame::mZombieMeetPlantUpdate()
                    zombie->mColumn--;
                    if(!mBlock[zombie->mRow - 1][zombie->mColumn - 1]->isEmpty)    //zombie meets plant!
                    {
-                       zombie->meetPlant = true;
-                       zombie->mZombieAttack();
-                       mPlants[zombie->mRow - 1][zombie->mColumn - 1]->isAttacked = true;
-                       mPlants[zombie->mRow - 1][zombie->mColumn - 1]->ATKofZombie += zombie->ATK;
+                       if(zombie->mZombieName == poleVaultingZombie && zombie->mStateIndex == 1)
+                       {
+                           zombie->mNextMovie();
+                       }
+                       else
+                       {
+                           zombie->meetPlant = true;
+                           zombie->mZombieAttack();
+                           mPlants[zombie->mRow - 1][zombie->mColumn - 1]->isAttacked = true;
+                           mPlants[zombie->mRow - 1][zombie->mColumn - 1]->ATKofZombie += zombie->ATK;
+                       }
                    }
                 }
             }
@@ -172,10 +179,14 @@ void InGame::mZombieMeetPlantUpdate()
 
 void InGame::mPlantFindZombieUpdate(Plant *plant)
 {
+    if(mZombies[plant->mRow - 1].length() == 0)
+        return;
+    if(mFindFirstZombie(mZombies[plant->mRow - 1], plant->pos().x()) == -1)
+        return;
     switch(plant->mName)
     {
     case peaShooter:
-        if(mZombies[plant->mRow - 1].length() > 0 && plant->mSpecialCDTime <= 0)
+        if(plant->mSpecialCDTime <= 0)
         {
             PeaBall* pb;
             pb = new PeaBall(peaBall, plant->mRow, plant->mColumn, this);
@@ -203,9 +214,12 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
     }
     if(mZombies[row - 1].length() != 0)
     {
-        int first = mFindFirstZombie(mZombies[row - 1]);
+        int first = mFindFirstZombie(mZombies[row - 1], peaball->pos().x());
+        if(first == -1)
+            return;
         if((peaball->mx + PEABALL_WIDTH) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
+            qDebug("%d", first);
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
             //delete the peaBall
@@ -530,12 +544,29 @@ void InGame::mBeginMove()
     QObject::connect(bgMove, SIGNAL(finished()), mSunTimer, SLOT(start()));
 }
 
-int InGame::mFindFirstZombie(QVector<Zombie*> v)
+int InGame::mFindFirstZombie(QVector<Zombie*> v, int x)
 {
-    int n = 0;
+    int count = 0;
     for(int i = 0; i < v.size(); i++)
     {
-        if(v[i]->mx < v[n]->mx)
+        if(v[i]->mx + v[i]->mHSpace < x)
+            count++;
+    }
+    if(count == v.size())   //no zombie in front of the plant
+        return -1;
+
+    int n;
+    for(int i = 0; i < v.size(); i++)
+    {
+        if(v[i]->mx + v[i]->mHSpace > x)
+        {
+            n = i;
+            break;
+        }
+    }
+    for(int i = 0; i < v.size(); i++)
+    {
+        if(v[i]->mx < v[n]->mx && v[i]->mx + v[i]->mHSpace > x)
             n = i;
     }
     return n;
@@ -611,10 +642,6 @@ void InGame::mDeletePlantSlot(int row, int column)
     mBlock[row - 1][column - 1]->isEmpty = true;
 }
 
-void InGame::mDeleteZombieSlot(Zombie *zombie, int row)
-{
-
-}
 
 /****~func******/
 InGame::~InGame()

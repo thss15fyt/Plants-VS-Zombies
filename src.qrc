@@ -91,4 +91,19 @@
         <file>src/plants/CherryBomb/CherryBomb.gif</file>
         <file>src/plants/CherryBomb/CherryBombCard.png</file>
     </qresource>
+    <qresource prefix="/Zombies/PpleVaultingZombie">
+        <file>src/zombies/PoleVaultingZombie/0.gif</file>
+        <file>src/zombies/PoleVaultingZombie/1.gif</file>
+        <file>src/zombies/PoleVaultingZombie/BoomDie.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombie.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieAttack.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieDie.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieHead.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieJump.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieJump2.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieLostHead.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieLostHeadAttack.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieLostHeadWalk.gif</file>
+        <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieWalk.gif</file>
+    </qresource>
 </RCC>
