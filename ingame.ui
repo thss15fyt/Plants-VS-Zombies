@@ -53,101 +53,106 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="menuButton">
-   <property name="geometry">
-    <rect>
-     <x>750</x>
-     <y>0</y>
-     <width>150</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#menuButton
-{
-	background-image: url(:/src/interface/InGameMenu.png);
-	border: none;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="CardBox">
+  <widget class="QWidget" name="top" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>667</width>
-     <height>84</height>
+     <width>891</width>
+     <height>91</height>
     </rect>
    </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#CardBox
+   <widget class="QLabel" name="CardBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>667</width>
+      <height>84</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#CardBox
 {
 	background-image: url(:/src/interface/cardBox.png);
 }</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="SpadeBox">
-   <property name="geometry">
-    <rect>
-     <x>677</x>
-     <y>0</y>
-     <width>70</width>
-     <height>73</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#SpadeBox
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="sunNum">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>62</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>19</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="menuButton">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>0</y>
+      <width>150</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#menuButton
+{
+	background-image: url(:/src/interface/InGameMenu.png);
+	border: none;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SpadeBox">
+    <property name="geometry">
+     <rect>
+      <x>667</x>
+      <y>0</y>
+      <width>70</width>
+      <height>73</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#SpadeBox
 {
 	background-image: url(:/src/interface/SpadeBox.png);
 	border: none;
 }
 </string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="sunNum">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>62</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>19</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>0</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <zorder>background</zorder>
-  <zorder>CardBox</zorder>
-  <zorder>sunNum</zorder>
-  <zorder>menuButton</zorder>
-  <zorder>SpadeBox</zorder>
  </widget>
  <resources/>
  <connections/>

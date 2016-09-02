@@ -18,6 +18,7 @@ public:
     double mLeftTime;
     plantName mName;
     QPushButton* mCardButton;
+    QLabel* mEmptyCardLabel;
     QLabel* mCardLabel;
     QLabel* mCostSunLabel;
     QLabel* mNotEnougnSun;

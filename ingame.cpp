@@ -22,9 +22,9 @@ InGame::InGame(QWidget *parent) :
     ui(new Ui::InGame)
 {
     ui->setupUi(this);
-    mInitTimer();
     mPlayBgm();
-    mBeginMove();
+
+    mInitTimer();
     mInitZombieTime();
     mInitPlant();
     mInitPreviewZombies();
@@ -34,6 +34,8 @@ InGame::InGame(QWidget *parent) :
     mInitCard();
     mInitCursor();
     mInitRand();
+
+    mBeginMove();
 
     this->setMouseTracking(true);
 
@@ -293,30 +295,6 @@ void InGame::mInitSpade()
     mSpadeCursor = new QCursor(*mSpadeCursorPixmap);
 }
 
-void InGame::mPlayBgm()
-{
-    mChoosePlantsBgm = new QSound(":/music/src/music/ChoosePlantsBGM.wav", this);
-    mChoosePlantsBgm->setLoops(QSound::Infinite);
-    mChoosePlantsBgm->play();
-}
-
-void InGame::mBeginMove()
-{
-    ui->background->move(0, 0);
-    QPropertyAnimation* bgMove;
-    bgMove = new QPropertyAnimation(ui->background, "pos");
-    bgMove->setDuration(4500);
-    bgMove->setStartValue(QPoint(0, 0));
-    bgMove->setKeyValueAt(0.25, QPoint(0, 0));
-    bgMove->setKeyValueAt(0.5, QPoint(-500, 0));
-    bgMove->setKeyValueAt(0.75, QPoint(-500, 0));
-    bgMove->setEndValue(QPoint(-190, 0));
-    bgMove->start();
-    //if there's a new move, it sends the signal
-    QObject::connect(bgMove, SIGNAL(finished()), mTimer, SLOT(start()));
-    QObject::connect(bgMove, SIGNAL(finished()), mSunTimer, SLOT(start()));
-}
-
 void InGame::mInitPreviewZombies()
 {
     mPreviewZombie = new PreviewZombie*[3];
@@ -522,6 +500,37 @@ void InGame::on_menuButton_clicked()
 }
 
 /***tool func***/
+
+void InGame::mPlayBgm()
+{
+    mChoosePlantsBgm = new QSound(":/music/src/music/ChoosePlantsBGM.wav", this);
+    mChoosePlantsBgm->setLoops(QSound::Infinite);
+    mChoosePlantsBgm->play();
+}
+
+void InGame::mBeginMove()
+{
+    ui->background->move(0, 0);
+    QPropertyAnimation* bgMove;
+    bgMove = new QPropertyAnimation(ui->background, "pos");
+    bgMove->setDuration(4500);
+    bgMove->setStartValue(QPoint(0, 0));
+    bgMove->setKeyValueAt(0.25, QPoint(0, 0));
+    bgMove->setKeyValueAt(0.5, QPoint(-500, 0));
+    bgMove->setKeyValueAt(0.75, QPoint(-500, 0));
+    bgMove->setEndValue(QPoint(-190, 0));
+    bgMove->start();
+
+    for(int i = 0; i < mPlantNum - 1; i++)
+    {
+        QObject::connect(bgMove, SIGNAL(finished()), mCard[i]->mNotEnougnSun, SLOT(hide()));
+        QObject::connect(bgMove, SIGNAL(finished()), mCard[i]->mCardButton, SLOT(show()));
+    }
+    //if there's a new move, it sends the signal
+    QObject::connect(bgMove, SIGNAL(finished()), mTimer, SLOT(start()));
+    QObject::connect(bgMove, SIGNAL(finished()), mSunTimer, SLOT(start()));
+}
+
 int InGame::mFindFirstZombie(QVector<Zombie*> v)
 {
     int n = 0;

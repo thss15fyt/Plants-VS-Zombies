@@ -14,9 +14,15 @@ Card::Card(int index, plantName name, QWidget *parent) :
 
     mCardButton = new QPushButton(this);
     mCardButton->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
-    mCardButton->setStyleSheet("background-image: url(://src/interface/EmptyCard.png);border:none;");
+    mCardButton->setStyleSheet("border:none;");
     QObject::connect(mCardButton, SIGNAL(clicked()), this, SLOT(mButtonClickedSlot()));
     QObject::connect(this, SIGNAL(mButtonClicked(plantName)), parent, SLOT(mCardClickedSlot(plantName)));
+    mCardButton->hide();
+
+    mEmptyCardLabel = new QLabel(this);
+    mEmptyCardLabel->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
+    mEmptyCardLabel->setStyleSheet("background-image: url(:/src/interface/EmptyCard.png)");
+    mEmptyCardLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     mCardLabel = new QLabel(this);
     mCardLabel->setGeometry(CARD_PLANT_X, CARD_PLANT_Y, CARD_PLANT_W, CARD_PLANT_H);
@@ -31,7 +37,6 @@ Card::Card(int index, plantName name, QWidget *parent) :
     mNotEnougnSun->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
     mNotEnougnSun->setStyleSheet("background-image: url(:/src/interface/NotEnoughSun.png)");
     mNotEnougnSun->setAttribute(Qt::WA_TransparentForMouseEvents);
-    mNotEnougnSun->hide();
 
     mInCD = new QLabel(this);
     mInCD->setGeometry(0, 0, CARD_WIDTH, CARD_HEIGHT);
@@ -67,7 +72,6 @@ Card::Card(int index, plantName name, QWidget *parent) :
     cd->setDuration(mCDTime * 1000);
     cd->setStartValue(QRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
     cd->setEndValue(QRect(0, 0, CARD_WIDTH, 0));
-
 }
 
 void Card::mButtonClickedSlot()
