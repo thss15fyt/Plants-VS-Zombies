@@ -6,7 +6,8 @@
 #include <QMovie>
 #include "sun.h"
 
-enum plantName{null, sunFlower, peaShooter, wallNut};
+enum plantName{null, sunFlower, peaShooter, wallNut, cherryBomb};
+enum explosionName{cherryBombExplosion};
 
 class Plant : public QWidget
 {
@@ -23,11 +24,8 @@ public:
     int mMovieNum;
     double mSpecialCDTime;
     int HP;
-
     bool isAttacked;
     int ATKofZombie;
-
-    void mNextMovie();
 
     void mUpdate();
     void mSunFlowerUpdate();
@@ -35,8 +33,13 @@ public:
     void mWallNutUpdate();
 
 signals:
+    void mExplodeSignal(explosionName, int row, int column);
+    void mDeleteThis(int row, int column);
 
 public slots:
+    void mNextMovie();
+    void mPlantExplodeSlot();
+    void mDeleteThisSlot();
 
 };
 

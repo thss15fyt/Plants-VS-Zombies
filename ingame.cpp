@@ -107,8 +107,6 @@ void InGame::mZombieUpdate()
 {
     for(int i = 0; i < 5; i++)
     {
-        //qSort(mZombies[i].begin(), mZombies[i].end());  //make sure to find the first zombie
-                                                        //overload operator <
         for(int j = 0; j < mZombies[i].length(); j++)
         {
             mZombies[i][j]->mUpdate();
@@ -148,9 +146,6 @@ void InGame::mZombieMeetPlantUpdate()
             Zombie* zombie = mZombies[i][j];
             if(!zombie->meetPlant)
             {
-                zombie->mx--; //may change speed
-                zombie->move(QPoint(zombie->mx, zombie->my));
-
                 if(zombie->mx + zombie->mHSpace <= FIELD_X + (zombie->mColumn - 1) * BLOCK_W)  //enter the next block
                 {
                    zombie->mColumn--;
@@ -195,7 +190,6 @@ void InGame::mPlantFindZombieUpdate(Plant *plant)
 void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
 {
     int row = peaball->mRow;
-    int i = mPeaBall[row - 1].count(peaball);
     if(peaball->mx > 900)
     {
         for(int i = 0; i < mPeaBall[row - 1].size(); i++)
@@ -325,7 +319,7 @@ void InGame::mInitBlock()
 
 void InGame::mInitPlant()
 {
-    mPlantNum = 4;
+    mPlantNum = 5;
     isPlant = false;
     mPlantName = null;
 
@@ -342,7 +336,7 @@ void InGame::mInitPlant()
 
 void InGame::mInitPlantCostSun()
 {
-    mSunNum = 50;
+    mSunNum = 1000;
     ui->sunNum->setText(QString::number(mSunNum));
 
     mPlantCostSun = new int[mPlantNum];
@@ -350,6 +344,7 @@ void InGame::mInitPlantCostSun()
     mPlantCostSun[sunFlower] = 50;
     mPlantCostSun[peaShooter] = 100;
     mPlantCostSun[wallNut] = 50;
+    mPlantCostSun[cherryBomb] = 150;
 }
 
 void InGame::mInitCard()
@@ -358,6 +353,7 @@ void InGame::mInitCard()
     mCard[0] = new Card(1, sunFlower, this);
     mCard[1] = new Card(2, peaShooter, this);
     mCard[2] = new Card(3, wallNut, this);
+    mCard[3] = new Card(4, cherryBomb, this);
 }
 
 void InGame::mInitCursor()
@@ -376,6 +372,9 @@ void InGame::mInitCursor()
 
     mPlantCursorPixmap[wallNut] = new QPixmap(":/Plants/WallNut/src/plants/WallNut/0.gif");
     mPlantCursor[wallNut] = new QCursor(*mPlantCursorPixmap[wallNut]);
+
+    mPlantCursorPixmap[cherryBomb] = new QPixmap(":/Plants/CherryBomb/src/plants/CherryBomb/0.gif");
+    mPlantCursor[cherryBomb] = new QCursor(*mPlantCursorPixmap[cherryBomb]);
 }
 
 void InGame::mousePressEvent(QMouseEvent *e)
@@ -542,7 +541,7 @@ int InGame::mFindFirstZombie(QVector<Zombie*> v)
     return n;
 }
 
-/******sun******/
+/******other slots******/
 void InGame::mDropSunSlot()
 {
     Sun* sun;
@@ -579,6 +578,42 @@ void InGame::mProduceSun(Plant *plant)
     QObject::connect(sun, SIGNAL(mDeleteThis()), this, SLOT(mDeleteSunSlot()));
     mSun.append(sun);
     plant->mSpecialCDTime = 24;
+}
+
+void InGame::mExplodeSlot(explosionName name, int row, int column)
+{
+    QRect* rect;
+    switch(name)
+    {
+    case cherryBombExplosion:
+        rect = new QRect(FIELD_X + (column - 2) * BLOCK_W,
+                   FIELD_Y + (row - 2) * BLOCK_H,
+                   BLOCK_W * 3, BLOCK_H * 3);
+        break;
+    }
+    for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < mZombies[i].size(); j++)
+        {
+            if(rect->contains(mZombies[i][j]->pos().x() + mZombies[i][j]->mHSpace,
+                             mZombies[i][j]->pos().y() + (mZombies[i][j]->size().height() * (3.0/5.0))))
+            {
+                mZombies[i][j]->mBeExploded();
+            }
+        }
+    }
+}
+
+void InGame::mDeletePlantSlot(int row, int column)
+{
+    delete mPlants[row - 1][column - 1];
+    mPlants[row - 1][column - 1] = NULL;
+    mBlock[row - 1][column - 1]->isEmpty = true;
+}
+
+void InGame::mDeleteZombieSlot(Zombie *zombie, int row)
+{
+
 }
 
 /****~func******/

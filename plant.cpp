@@ -1,7 +1,6 @@
 #include "plant.h"
 #include "FieldSize.h"
 #include "PlantSize.h"
-#include <QDebug>
 
 Plant::Plant(int row, int column, plantName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(column),
@@ -43,7 +42,21 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         HP = 4000;
         mPlantCurrentMovie = new QMovie(":/Plants/WallNut/src/plants/WallNut/WallNut.gif");
         break;
+    case cherryBomb:
+        this->setGeometry(FIELD_X + (column - 1) * BLOCK_W + BLOCK_W_CHERRYBOMB_SPACE, FIELD_Y + (row - 1) * BLOCK_H + BLOCK_V_CHERRYBOMB_SPACE,
+                          CHERRYBOMB_W, CHERRYBOMB_H);
+        mPlantLabel->setGeometry(0, 0, CHERRYBOMB_W, CHERRYBOMB_H);
+        mMovieNum = 2;
+        mMovieIndex = 1;
+        mSpecialCDTime = 0;
+        HP = 300;
+        mPlantCurrentMovie = new QMovie(":/Plants/CherryBomb/src/plants/CherryBomb/CherryBomb.gif");
+        QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mPlantExplodeSlot()));
+        QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
+        QObject::connect(this, SIGNAL(mExplodeSignal(explosionName, int, int)), parent, SLOT(mExplodeSlot(explosionName, int, int)));
+        break;
     }
+    QObject::connect(this, SIGNAL(mDeleteThis(int,int)), parent, SLOT(mDeletePlantSlot(int , int)));
     mPlantLabel->setMovie(mPlantCurrentMovie);
     mPlantCurrentMovie->start();
 }
@@ -85,14 +98,21 @@ void Plant::mNextMovie()
         {
             delete mPlantCurrentMovie;
             mPlantCurrentMovie = new QMovie(":/Plants/WallNut/src/plants/WallNut/Wallnut_cracked1.gif");
-            break;
         }
         else if(mMovieIndex == 3)
         {
             delete mPlantCurrentMovie;
             mPlantCurrentMovie = new QMovie(":/Plants/WallNut/src/plants/WallNut/Wallnut_cracked2.gif");
-            break;
         }
+        break;
+    case cherryBomb:
+        if(mMovieIndex == 2)
+        {
+            delete mPlantCurrentMovie;
+            mPlantCurrentMovie = new QMovie(":/Plants/CherryBomb/src/plants/CherryBomb/Boom.gif");
+            QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mDeleteThisSlot()));
+        }
+        break;
     }
     mPlantLabel->setMovie(mPlantCurrentMovie);
     mPlantCurrentMovie->start();
@@ -114,4 +134,19 @@ void Plant::mWallNutUpdate()
     if((mMovieIndex == 1 && HP <= 2666) ||
             (mMovieIndex == 2 && HP <= 1333))
         mNextMovie();
+}
+
+void Plant::mPlantExplodeSlot()
+{
+    switch(mName)
+    {
+    case cherryBomb:
+        emit mExplodeSignal(cherryBombExplosion, mRow, mColumn);
+        break;
+    }
+}
+
+void Plant::mDeleteThisSlot()
+{
+    emit mDeleteThis(mRow, mColumn);
 }

@@ -65,6 +65,11 @@ Card::Card(int index, plantName name, QWidget *parent) :
         mCostSun = 50;
         mCDTime = 30;
         break;
+    case cherryBomb:
+        mCardLabel->setStyleSheet("background-image: url(:/Plants/CherryBomb/src/plants/CherryBomb/CherryBombCard.png)");
+        mCostSun = 150;
+        mCDTime = 30;
+        break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
 

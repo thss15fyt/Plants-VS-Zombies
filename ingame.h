@@ -41,6 +41,9 @@ private slots:
 
     void mDropSunSlot();
     void mDeleteSunSlot();
+    void mExplodeSlot(explosionName, int row, int column);
+    void mDeletePlantSlot(int row, int column);
+    void mDeleteZombieSlot(Zombie* zombie, int row);
 
     void mBlockClickedSlot(int);
     void mCardClickedSlot(plantName);

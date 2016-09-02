@@ -26,15 +26,18 @@ public:
     QMovie* mZombieMovie;
     zombieName mZombieName;
     bool meetPlant;
+    bool isExploded;
 
     void mZombieNormal();
     void mZombieAttack();
+    void mBeExploded();
 
     void mUpdate();
 
 signals:
 
 public slots:
+    void mAfterExplosionSlot();
 
 };
 

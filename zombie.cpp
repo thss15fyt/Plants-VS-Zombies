@@ -4,7 +4,7 @@
 
 Zombie::Zombie(int row, zombieName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(10),
-    mZombieName(name), meetPlant(false)
+    mZombieName(name), meetPlant(false), isExploded(false)
 {
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     mZombieLabel = new QLabel(this);
@@ -88,7 +88,27 @@ void Zombie::mZombieAttack()
 
 void Zombie::mUpdate()
 {
+    if(!meetPlant && !isExploded)
+    {
+        mx--; //may change speed
+        move(QPoint(mx, my));
+    }
 
+}
+
+void Zombie::mBeExploded()
+{
+    isExploded = true;
+    delete mZombieMovie;
+    mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");
+    mZombieLabel->setMovie(mZombieMovie);
+    QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mAfterExplosionSlot()));
+    mZombieMovie->start();
+}
+
+void Zombie::mAfterExplosionSlot()
+{
+    HP -= 1800;
 }
 
 Zombie::~Zombie()

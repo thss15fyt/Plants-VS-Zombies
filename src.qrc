@@ -85,4 +85,10 @@
     <qresource prefix="/txt">
         <file>1.txt</file>
     </qresource>
+    <qresource prefix="/Plants/CherryBomb">
+        <file>src/plants/CherryBomb/0.gif</file>
+        <file>src/plants/CherryBomb/Boom.gif</file>
+        <file>src/plants/CherryBomb/CherryBomb.gif</file>
+        <file>src/plants/CherryBomb/CherryBombCard.png</file>
+    </qresource>
 </RCC>
