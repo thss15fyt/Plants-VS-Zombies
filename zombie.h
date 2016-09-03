@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QMovie>
+#include <QSound>
 
 enum zombieName{zombie, coneHeadZombie, bucketHeadZombie, poleVaultingZombie};
 
@@ -28,6 +29,7 @@ public:
     zombieName mZombieName;
     bool meetPlant;
     bool isExploded;
+    QSound* mEatingSound;
 
     void mZombieNormal();
     void mZombieAttack();

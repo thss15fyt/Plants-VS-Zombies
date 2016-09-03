@@ -153,6 +153,19 @@
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="gameOver">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>70</y>
+     <width>497</width>
+     <height>439</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

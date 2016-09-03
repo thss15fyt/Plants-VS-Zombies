@@ -1,6 +1,7 @@
 #include "plant.h"
 #include "FieldSize.h"
 #include "PlantSize.h"
+#include <QSound>
 
 Plant::Plant(int row, int column, plantName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(column),
@@ -111,6 +112,7 @@ void Plant::mNextMovie()
             delete mPlantCurrentMovie;
             mPlantCurrentMovie = new QMovie(":/Plants/CherryBomb/src/plants/CherryBomb/Boom.gif");
             QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mDeleteThisSlot()));
+            QSound::play(":/music/src/music/cherrybomb.wav");
         }
         break;
     }

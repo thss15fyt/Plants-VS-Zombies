@@ -22,6 +22,7 @@ InGame::InGame(QWidget *parent) :
     ui(new Ui::InGame)
 {
     ui->setupUi(this);
+    ui->gameOver->hide();
     mPlayBgm();
 
     mInitTimer();
@@ -41,6 +42,7 @@ InGame::InGame(QWidget *parent) :
 
     QObject::connect(this, SIGNAL(mGameStateChanged(gameStateType)),
                      parent, SLOT(mGameStateChangedSlot(gameStateType)));
+    QObject::connect(this, SIGNAL(mGameOver()), this, SLOT(mGameOverSlot()));
 }
 
 /*****Update functions*****/
@@ -65,6 +67,8 @@ void InGame::mShowZombieUpdate()
             Zombie* p;
             int n = mRandRow->getRandNumber();
             p = new Zombie(n, mZombieShowTime[mShowZombies].name, this);
+            if(mShowZombies == 0)
+                QSound::play(":/music/src/music/awooga.wav");
             p->show();
             mZombies[n - 1].append(p);
             mShowZombies++;
@@ -110,6 +114,9 @@ void InGame::mZombieUpdate()
         for(int j = 0; j < mZombies[i].length(); j++)
         {
             mZombies[i][j]->mUpdate();
+            //GameOver judge
+            if(mZombies[i][j]->pos().x() + mZombies[i][j]->mHSpace < 0)
+                emit mGameOver();
             //Death judge
             if(mZombies[i][j]->HP <= 0)
             {
@@ -144,11 +151,15 @@ void InGame::mZombieMeetPlantUpdate()
         for(int j = 0; j < mZombies[i].size(); j++)
         {
             Zombie* zombie = mZombies[i][j];
+            if(zombie->isExploded)
+                return;
             if(!zombie->meetPlant)
             {
                 if(zombie->mx + zombie->mHSpace <= FIELD_X + (zombie->mColumn - 1) * BLOCK_W)  //enter the next block
                 {
                    zombie->mColumn--;
+                   if(zombie->mColumn == 0)
+                       return;
                    if(!mBlock[zombie->mRow - 1][zombie->mColumn - 1]->isEmpty)    //zombie meets plant!
                    {
                        if(zombie->mZombieName == poleVaultingZombie && zombie->mStateIndex == 1)
@@ -219,7 +230,6 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             return;
         if((peaball->mx + PEABALL_WIDTH) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
-            qDebug("%d", first);
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
             //delete the peaBall
@@ -247,10 +257,12 @@ void InGame::mCardUpdate()
         if(mCard[i]->mCostSun > mSunNum)        //not enough sun
         {
             mCard[i]->mNotEnougnSun->show();
+            mCard[i]->mCardButton->hide();
         }
         else if(mCard[i]->mCostSun <= mSunNum && mCard[i]->mLeftTime <= 0)
         {
             mCard[i]->mNotEnougnSun->hide();
+            mCard[i]->mCardButton->show();
         }
     }
 }
@@ -434,6 +446,7 @@ void InGame::mBlockClickedSlot(int n)
         mSunNum -= mPlantCostSun[mPlantName];
         mBlock[i][j]->isEmpty = false;
         ui->sunNum->setText(QString::number(mSunNum));
+        QSound::play(":/music/src/music/plant1.wav");
         //set cards' CD
         for(int n = 0; n < mPlantNum - 1; n++)
         {
@@ -457,6 +470,27 @@ void InGame::mBlockClickedSlot(int n)
         isPlant = false;
         mPlantName = null;
         this->setCursor(Qt::ArrowCursor);
+        //find nearby zombies
+        for(int i = 0; i < 5; i++)
+        {
+            for(int j = 0; j < mZombies[i].size(); j++)
+            {
+                if(mZombies[i][j]->mRow == row && mZombies[i][j]->mColumn == column)
+                {
+                    if(mZombies[i][j]->mZombieName == poleVaultingZombie && mZombies[i][j]->mStateIndex == 1)
+                    {
+                        mZombies[i][j]->mNextMovie();
+                    }
+                    else
+                    {
+                        mZombies[i][j]->meetPlant = true;
+                        mZombies[i][j]->mZombieAttack();
+                        mPlants[mZombies[i][j]->mRow - 1][mZombies[i][j]->mColumn - 1]->isAttacked = true;
+                        mPlants[mZombies[i][j]->mRow - 1][mZombies[i][j]->mColumn - 1]->ATKofZombie += mZombies[i][j]->ATK;
+                    }
+                }
+            }
+        }
     }
     else if(isSpade && mPlants[i][j] != NULL)
     {
@@ -629,6 +663,11 @@ void InGame::mExplodeSlot(explosionName name, int row, int column)
             if(rect->contains(mZombies[i][j]->pos().x() + mZombies[i][j]->mHSpace,
                              mZombies[i][j]->pos().y() + (mZombies[i][j]->size().height() * (3.0/5.0))))
             {
+                if(mZombies[i][j]->meetPlant)
+                {
+                    mPlants[mZombies[i][j]->mRow - 1][mZombies[i][j]->mColumn - 1]->isAttacked = false;
+                    mZombies[i][j]->meetPlant = false;
+                }
                 mZombies[i][j]->mBeExploded();
             }
         }
@@ -642,6 +681,18 @@ void InGame::mDeletePlantSlot(int row, int column)
     mBlock[row - 1][column - 1]->isEmpty = true;
 }
 
+void InGame::mGameOverSlot()
+{
+    mChoosePlantsBgm->stop();
+    mTimer->stop();
+    mGameOverMovie = new QMovie(":/src/interface/gameover.gif");
+    ui->gameOver->raise();
+    ui->gameOver->setMovie(mGameOverMovie);
+    ui->gameOver->show();
+
+    QSound::play(":/music/src/music/scream.wav");
+    mGameOverMovie->start();
+}
 
 /****~func******/
 InGame::~InGame()

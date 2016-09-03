@@ -1,6 +1,7 @@
 #include "zombie.h"
 #include "ZombieSize.h"
 #include "FieldSize.h"
+#include <QDebug>
 
 Zombie::Zombie(int row, zombieName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(10),
@@ -9,6 +10,8 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     mZombieLabel = new QLabel(this);
     mx = 900;
+    mEatingSound = new QSound(":/music/src/music/chomp.wav");
+    mEatingSound->setLoops(QSound::Infinite);
     switch(name)
     {
     case zombie:
@@ -28,7 +31,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         my = FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE;
         mZombieLabel->setGeometry(0, 0, ZOMBIE_W, ZOMBIE_H);
         mZombieMovie = new QMovie(":/Zombies/ConeHeadZombie/src/zombies/ConeheadZombie/ConeheadZombie.gif");
-        mStateNum = 1;
+        mStateNum = 2;
         mStateIndex = 1;
         mHSpace = CONE_ZOMBIE_H_SPACE;
         ATK = 6;
@@ -40,7 +43,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         my = FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE;
         mZombieLabel->setGeometry(0, 0, ZOMBIE_W, ZOMBIE_H);
         mZombieMovie = new QMovie(":/Zombies/BucketHeadZombie/src/zombies/BucketheadZombie/BucketheadZombie.gif");
-        mStateNum = 1;
+        mStateNum = 2;
         mStateIndex = 1;
         mHSpace = BUCKET_ZOMBIE_H_SPACE;
         ATK = 6;
@@ -67,6 +70,9 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
 
 void Zombie::mZombieNormal()
 {
+    if(HP < 0)
+        return;
+    mEatingSound->stop();
     delete mZombieMovie;
     switch(mZombieName)
     {
@@ -89,6 +95,7 @@ void Zombie::mZombieNormal()
 
 void Zombie::mZombieAttack()
 {
+    mEatingSound->play();
     delete mZombieMovie;
     switch(mZombieName)
     {
@@ -117,6 +124,17 @@ void Zombie::mUpdate()
         mx -= mSpeed;
         move(QPoint(mx, my));
     }
+    switch(mZombieName)
+    {
+    case coneHeadZombie:
+        if(HP < 270 && HP >= 0 && mStateIndex == 1)
+            mNextMovie();
+        break;
+    case bucketHeadZombie:
+        if(HP < 270 && HP >= 0 && mStateIndex == 1)
+            mNextMovie();
+        break;
+    }
 
 }
 
@@ -124,7 +142,10 @@ void Zombie::mBeExploded()
 {
     isExploded = true;
     delete mZombieMovie;
-    mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");
+    if(mZombieName == zombie || mZombieName == coneHeadZombie || mZombieName == bucketHeadZombie)
+        mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");
+    else if(mZombieName == poleVaultingZombie)
+        mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/BoomDie.gif");
     mZombieLabel->setMovie(mZombieMovie);
     QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mAfterExplosionSlot()));
     mZombieMovie->start();
@@ -142,9 +163,16 @@ void Zombie::mNextMovie()
     delete mZombieMovie;
     switch(mZombieName)
     {
+    case coneHeadZombie:
+        mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
+        break;
+    case bucketHeadZombie:
+        mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
+        break;
     case poleVaultingZombie:
         if(mStateIndex == 2)
         {
+            QSound::play(":/music/src/music/polevault.wav");
             mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/PoleVaultingZombieJump.gif");
             QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
         }
@@ -169,5 +197,6 @@ void Zombie::mNextMovie()
 Zombie::~Zombie()
 {
     delete mZombieMovie;
+    delete mEatingSound;
 }
 

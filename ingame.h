@@ -32,6 +32,7 @@ public:
 
 signals:
     void mGameStateChanged(gameStateType);
+    void mGameOver();
 
 protected:
     void mousePressEvent(QMouseEvent*);
@@ -43,6 +44,7 @@ private slots:
     void mDeleteSunSlot();
     void mExplodeSlot(explosionName, int row, int column);
     void mDeletePlantSlot(int row, int column);
+    void mGameOverSlot();
 
     void mBlockClickedSlot(int);
     void mCardClickedSlot(plantName);
@@ -88,6 +90,8 @@ private:
 
     QTimer *mSunTimer;
     QVector<Sun*> mSun;
+
+    QMovie *mGameOverMovie;
 
     void mPlayBgm();
     void mBeginMove();

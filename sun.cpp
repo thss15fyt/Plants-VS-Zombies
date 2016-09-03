@@ -1,5 +1,6 @@
 #include "sun.h"
 #include <QPropertyAnimation>
+#include <QSound>
 
 Sun::Sun(QPoint point, bool b, QWidget *parent) :
     QWidget(parent), mStayPoint(point),
@@ -49,6 +50,7 @@ Sun::Sun(QPoint point, bool b, QWidget *parent) :
 }
 void Sun::mCollectedSlot()
 {
+    QSound::play(":/music/src/music/points.wav");
     delete mSunButton;
     QPropertyAnimation *collect;
     collect = new QPropertyAnimation(this, "pos");

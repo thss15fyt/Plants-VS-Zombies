@@ -12,7 +12,7 @@ PVZ::PVZ(QWidget *parent) :
     ui->setupUi(this);
     this->setMouseTracking(true);
     mGameState = welcome;
-    mCurrentWidget = new InGame(this);
+    mCurrentWidget = new Welcome(this);
     this->setCentralWidget(mCurrentWidget);
 }
 

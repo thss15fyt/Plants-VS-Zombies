@@ -24,12 +24,21 @@
         <file>src/interface/Sun.gif</file>
         <file>src/interface/NotEnoughSun.png</file>
         <file>src/interface/InCD.png</file>
+        <file>src/interface/gameover.gif</file>
     </qresource>
     <qresource prefix="/music">
         <file>src/music/ZombiesLaugh.wav</file>
         <file>src/music/Faster.wav</file>
         <file>src/music/LookupattheSky.wav</file>
         <file>src/music/ChoosePlantsBGM.wav</file>
+        <file>src/music/scream.wav</file>
+        <file>src/music/awooga.wav</file>
+        <file>src/music/chomp.wav</file>
+        <file>src/music/plant1.wav</file>
+        <file>src/music/points.wav</file>
+        <file>src/music/Watery Graves.wav</file>
+        <file>src/music/polevault.wav</file>
+        <file>src/music/cherrybomb.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
