@@ -25,6 +25,7 @@
         <file>src/interface/NotEnoughSun.png</file>
         <file>src/interface/InCD.png</file>
         <file>src/interface/gameover.gif</file>
+        <file>src/interface/readySetPlants.gif</file>
     </qresource>
     <qresource prefix="/music">
         <file>src/music/ZombiesLaugh.wav</file>
@@ -36,9 +37,12 @@
         <file>src/music/chomp.wav</file>
         <file>src/music/plant1.wav</file>
         <file>src/music/points.wav</file>
-        <file>src/music/Watery Graves.wav</file>
         <file>src/music/polevault.wav</file>
         <file>src/music/cherrybomb.wav</file>
+        <file>src/music/readysetplant.wav</file>
+        <file>src/music/WateryGraves.wav</file>
+        <file>src/music/splat2.wav</file>
+        <file>src/music/newspaper_rarrgh2.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
@@ -114,5 +118,21 @@
         <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieLostHeadAttack.gif</file>
         <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieLostHeadWalk.gif</file>
         <file>src/zombies/PoleVaultingZombie/PoleVaultingZombieWalk.gif</file>
+    </qresource>
+    <qresource prefix="/Zombies/NewspaperZombie">
+        <file>src/zombies/NewspaperZombie/0.gif</file>
+        <file>src/zombies/NewspaperZombie/1.gif</file>
+        <file>src/zombies/NewspaperZombie/BoomDie.gif</file>
+        <file>src/zombies/NewspaperZombie/Die.gif</file>
+        <file>src/zombies/NewspaperZombie/Head.gif</file>
+        <file>src/zombies/NewspaperZombie/HeadAttack0.gif</file>
+        <file>src/zombies/NewspaperZombie/HeadAttack1.gif</file>
+        <file>src/zombies/NewspaperZombie/HeadWalk0.gif</file>
+        <file>src/zombies/NewspaperZombie/HeadWalk1.gif</file>
+        <file>src/zombies/NewspaperZombie/LostHeadAttack0.gif</file>
+        <file>src/zombies/NewspaperZombie/LostHeadAttack1.gif</file>
+        <file>src/zombies/NewspaperZombie/LostHeadWalk0.gif</file>
+        <file>src/zombies/NewspaperZombie/LostHeadWalk1.gif</file>
+        <file>src/zombies/NewspaperZombie/LostNewspaper.gif</file>
     </qresource>
 </RCC>

@@ -44,6 +44,7 @@ private slots:
     void mDeleteSunSlot();
     void mExplodeSlot(explosionName, int row, int column);
     void mDeletePlantSlot(int row, int column);
+    void mReadySetPlantSlot();
     void mGameOverSlot();
 
     void mBlockClickedSlot(int);
@@ -56,6 +57,7 @@ private:
     QTimer *mTimer;
     double mTime;    //one->16ms
     QSound *mChoosePlantsBgm;
+    QSound *mBGM;
 
     int mTotalZombies;
     int mShowZombies;   //num of zombies showed
@@ -92,10 +94,12 @@ private:
     QVector<Sun*> mSun;
 
     QMovie *mGameOverMovie;
+    QMovie *mReadyMovie;
 
     void mPlayBgm();
     void mBeginMove();
 
+    void mInitOtherUi();
     void mInitZombieTime();
     void mInitTimer();
     void mInitSpade();

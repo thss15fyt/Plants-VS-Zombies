@@ -6,7 +6,7 @@
 #include <QMovie>
 #include <QSound>
 
-enum zombieName{zombie, coneHeadZombie, bucketHeadZombie, poleVaultingZombie};
+enum zombieName{zombie, coneHeadZombie, bucketHeadZombie, poleVaultingZombie, newspaperZombie};
 
 class Zombie : public QWidget
 {

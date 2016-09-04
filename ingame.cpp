@@ -22,9 +22,9 @@ InGame::InGame(QWidget *parent) :
     ui(new Ui::InGame)
 {
     ui->setupUi(this);
-    ui->gameOver->hide();
-    mPlayBgm();
 
+    mPlayBgm();
+    mInitOtherUi();
     mInitTimer();
     mInitZombieTime();
     mInitPlant();
@@ -230,6 +230,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             return;
         if((peaball->mx + PEABALL_WIDTH) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
+            QSound::play(":/music/src/music/splat2.wav");
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
             //delete the peaBall
@@ -268,6 +269,14 @@ void InGame::mCardUpdate()
 }
 
 /*****Funstions for initing*****/
+
+void InGame::mInitOtherUi()
+{
+    ui->gameOver->hide();
+    mReadyMovie = new QMovie(":/src/interface/readySetPlants.gif");
+    ui->readySetPlant->setMovie(mReadyMovie);
+    ui->readySetPlant->hide();
+}
 
 void InGame::mInitZombieTime()
 {
@@ -551,8 +560,10 @@ void InGame::on_menuButton_clicked()
 void InGame::mPlayBgm()
 {
     mChoosePlantsBgm = new QSound(":/music/src/music/ChoosePlantsBGM.wav", this);
-    mChoosePlantsBgm->setLoops(QSound::Infinite);
     mChoosePlantsBgm->play();
+
+    mBGM = new QSound(":/music/src/music/WateryGraves.wav");
+    mBGM->setLoops(QSound::Infinite);
 }
 
 void InGame::mBeginMove()
@@ -576,6 +587,7 @@ void InGame::mBeginMove()
     //if there's a new move, it sends the signal
     QObject::connect(bgMove, SIGNAL(finished()), mTimer, SLOT(start()));
     QObject::connect(bgMove, SIGNAL(finished()), mSunTimer, SLOT(start()));
+    QObject::connect(bgMove, SIGNAL(finished()), this, SLOT(mReadySetPlantSlot()));
 }
 
 int InGame::mFindFirstZombie(QVector<Zombie*> v, int x)
@@ -681,10 +693,19 @@ void InGame::mDeletePlantSlot(int row, int column)
     mBlock[row - 1][column - 1]->isEmpty = true;
 }
 
+void InGame::mReadySetPlantSlot()
+{
+    ui->readySetPlant->show();
+    QSound::play(":/music/src/music/readysetplant.wav");
+    mReadyMovie->start();
+    QObject::connect(mReadyMovie, SIGNAL(finished()), mChoosePlantsBgm, SLOT(stop()));
+    QObject::connect(mReadyMovie, SIGNAL(finished()), mBGM, SLOT(play()));
+}
+
 void InGame::mGameOverSlot()
 {
-    mChoosePlantsBgm->stop();
     mTimer->stop();
+    mBGM->stop();
     mGameOverMovie = new QMovie(":/src/interface/gameover.gif");
     ui->gameOver->raise();
     ui->gameOver->setMovie(mGameOverMovie);
@@ -699,6 +720,8 @@ InGame::~InGame()
 {
     //delete anything without parent
     delete ui;
+    delete mBGM;
+    delete mChoosePlantsBgm;
     delete mSpadeCursor;
     delete mSpadeCursorPixmap;
     delete mRandRow;

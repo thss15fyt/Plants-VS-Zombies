@@ -166,6 +166,19 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="readySetPlant">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>250</y>
+     <width>238</width>
+     <height>104</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
