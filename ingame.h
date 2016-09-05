@@ -56,6 +56,7 @@ private:
     Ui::InGame *ui;
     QTimer *mTimer;
     double mTime;    //one->16ms
+    double mSunTime;
     QSound *mChoosePlantsBgm;
     QSound *mBGM;
 
@@ -119,6 +120,7 @@ private:
     void mPlantFindZombieUpdate(Plant*);
     void mPeaBallMeetZombieUpdate(PeaBall*&);
     void mCardUpdate();
+    void mSunUpdate();
 
     int mFindFirstZombie(QVector<Zombie*>, int x);
     void mProduceSun(Plant*);

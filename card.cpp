@@ -53,22 +53,22 @@ Card::Card(int index, plantName name, QWidget *parent) :
     case sunFlower:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/SunFlower/src/plants/SunFlower/SunFlowerCard.png)");
         mCostSun = 50;
-        mCDTime = 7.5;
+        mCDTime = 0;//7.5;
         break;
     case peaShooter:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/PeaShooter/src/plants/Peashooter/PeashooterCard.png)");
         mCostSun = 100;
-        mCDTime = 7.5;
+        mCDTime = 0;//7.5;
         break;
     case wallNut:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/WallNut/src/plants/WallNut/WallNutCard.png)");
         mCostSun = 50;
-        mCDTime = 30;
+        mCDTime = 0;//30;
         break;
     case cherryBomb:
         mCardLabel->setStyleSheet("background-image: url(:/Plants/CherryBomb/src/plants/CherryBomb/CherryBombCard.png)");
         mCostSun = 150;
-        mCDTime = 30;
+        mCDTime = 0;//30;
         break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));

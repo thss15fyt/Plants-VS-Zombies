@@ -12,7 +12,7 @@ PeaBall::PeaBall(peaBallName name, int row, int column, QWidget *parent) :
     mLabel->setGeometry(0, 0, PEABALL_WIDTH, PEABALL_HEIGHT);
     mx = FIELD_X + mColumn * BLOCK_W - 15;
     my = FIELD_Y + (mRow - 1) * BLOCK_H + PEABALL_V_SPACE;
-    mSpeed = 10;
+    mSpeed = 15;
     switch(mName)
     {
     case peaBall:
