@@ -1,7 +1,6 @@
 #include "zombie.h"
 #include "ZombieSize.h"
 #include "FieldSize.h"
-#include <QDebug>
 
 Zombie::Zombie(int row, zombieName name, QWidget *parent) :
     QWidget(parent), mRow(row), mColumn(10),

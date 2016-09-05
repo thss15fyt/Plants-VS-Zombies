@@ -71,6 +71,7 @@ void InGame::mShowZombieUpdate()
                 QSound::play(":/music/src/music/awooga.wav");
             p->show();
             mZombies[n - 1].append(p);
+            qDebug() << "in lawn" << n << "new a zombie, now size" << mZombies[n - 1].size();
             mShowZombies++;
             for(int i = n; i < 5; i++)
             {
@@ -220,6 +221,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             {
                 delete peaball;
                 mPeaBall[row - 1].remove(i);
+                i--;
             }
         }
     }
@@ -240,6 +242,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
                 {
                     delete peaball;
                     mPeaBall[row - 1].remove(i);
+                    break;
                 }
             }
         }
@@ -462,7 +465,6 @@ void InGame::mBlockClickedSlot(int n)
         mBlock[i][j]->isEmpty = false;
         ui->sunNum->setText(QString::number(mSunNum));
         QSound::play(":/music/src/music/plant1.wav");
-        qDebug() << "plant" << mPlantName;
         //set cards' CD
         for(int n = 0; n < mPlantNum - 1; n++)
         {
@@ -474,7 +476,6 @@ void InGame::mBlockClickedSlot(int n)
                 mCard[n]->cd->start();
             }
         }
-        qDebug() << "1";
         //raise zombies
         for(int k = i + 1; k < 5; k++)
         {
@@ -483,7 +484,6 @@ void InGame::mBlockClickedSlot(int n)
                 mZombies[k][m]->raise();
             }
         }
-        qDebug() << "2";
         //state go back
         isPlant = false;
         mPlantName = null;
@@ -509,7 +509,6 @@ void InGame::mBlockClickedSlot(int n)
                 }
             }
         }
-        qDebug() << "3";
     }
     else if(isSpade && mPlants[i][j] != NULL)
     {
@@ -645,6 +644,7 @@ void InGame::mDeleteSunSlot()
         {
             delete mSun[i];
             mSun.remove(i);
+            i--;
             mSunNum += 25;
             ui->sunNum->setText(QString::number(mSunNum));
         }
@@ -652,6 +652,7 @@ void InGame::mDeleteSunSlot()
         {
             delete mSun[i];
             mSun.remove(i);
+            i--;
         }
     }
 }
