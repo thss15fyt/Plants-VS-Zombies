@@ -179,6 +179,29 @@
     <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="win">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>270</y>
+     <width>166</width>
+     <height>134</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#win
+{
+	background-image: url(:/src/interface/trophy.png);
+	border: none;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

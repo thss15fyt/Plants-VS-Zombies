@@ -126,6 +126,13 @@ void InGame::mZombieUpdate()
                 }
                 delete mZombies[i][j];
                 mZombies[i].remove(j);
+                mDieZombies++;
+                j--;
+                if(mDieZombies == mTotalZombies)
+                {
+                    ui->win->show();
+                    ui->win->raise();
+                }
             }
         }
     }
@@ -322,11 +329,14 @@ void InGame::mInitOtherUi()
     mReadyMovie = new QMovie(":/src/interface/readySetPlants.gif");
     ui->readySetPlant->setMovie(mReadyMovie);
     ui->readySetPlant->hide();
+
+    ui->win->hide();
 }
 
 void InGame::mInitZombieTime()
 {
     mShowZombies = 0;
+    mDieZombies = 0;
     QFile file(":/txt/1.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -472,6 +482,7 @@ void InGame::mousePressEvent(QMouseEvent *e)
         {
             isSpade = false;
             this->setCursor(Qt::ArrowCursor);
+            ui->SpadeBox->setStyleSheet("background-position: left top; background-image: url(://src/interface/SpadeBox.png);border:none;");
         }
     }
 }
@@ -600,6 +611,15 @@ void InGame::on_menuButton_clicked()
 {
     emit mGameStateChanged(welcome);
 }
+
+//win
+void InGame::on_win_clicked()
+{
+    mTimer->stop();
+    mBGM->stop();
+    QSound::play(":/music/src/music/winmusic~1.wav");
+}
+
 
 /***tool func***/
 
@@ -748,6 +768,8 @@ void InGame::mReadySetPlantSlot()
     mReadyMovie->start();
     QObject::connect(mReadyMovie, SIGNAL(finished()), mChoosePlantsBgm, SLOT(stop()));
     QObject::connect(mReadyMovie, SIGNAL(finished()), mBGM, SLOT(play()));
+    QObject::connect(mReadyMovie, SIGNAL(finished()), ui->readySetPlant, SLOT(hide()));
+    QObject::connect(mReadyMovie, SIGNAL(finished()), ui->win, SLOT(raise()));
 }
 
 void InGame::mGameOverSlot()
@@ -779,3 +801,4 @@ InGame::~InGame()
         delete mPlantCursorPixmap[i];
     }
 }
+

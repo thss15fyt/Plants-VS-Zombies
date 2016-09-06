@@ -52,6 +52,8 @@ private slots:
     void on_menuButton_clicked();
     void on_SpadeBox_clicked();
 
+    void on_win_clicked();
+
 private:
     Ui::InGame *ui;
     QTimer *mTimer;
@@ -62,6 +64,7 @@ private:
 
     int mTotalZombies;
     int mShowZombies;   //num of zombies showed
+    int mDieZombies;
     ZombieWithTime* mZombieShowTime;
     QVector<Zombie*> mZombies[5];
     PreviewZombie **mPreviewZombie;

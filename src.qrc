@@ -26,6 +26,7 @@
         <file>src/interface/InCD.png</file>
         <file>src/interface/gameover.gif</file>
         <file>src/interface/readySetPlants.gif</file>
+        <file>src/interface/trophy.png</file>
     </qresource>
     <qresource prefix="/music">
         <file>src/music/ZombiesLaugh.wav</file>
@@ -44,6 +45,7 @@
         <file>src/music/splat2.wav</file>
         <file>src/music/newspaper_rarrgh2.wav</file>
         <file>src/music/firepea.wav</file>
+        <file>src/music/winmusic~1.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
