@@ -43,6 +43,7 @@
         <file>src/music/WateryGraves.wav</file>
         <file>src/music/splat2.wav</file>
         <file>src/music/newspaper_rarrgh2.wav</file>
+        <file>src/music/firepea.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
@@ -134,5 +135,11 @@
         <file>src/zombies/NewspaperZombie/LostHeadWalk0.gif</file>
         <file>src/zombies/NewspaperZombie/LostHeadWalk1.gif</file>
         <file>src/zombies/NewspaperZombie/LostNewspaper.gif</file>
+    </qresource>
+    <qresource prefix="/Plants/TorchWood">
+        <file>src/plants/TorchWood/Torchwood.gif</file>
+        <file>src/plants/TorchWood/TorchwoodCard.png</file>
+        <file>src/plants/TorchWood/0.gif</file>
+        <file>src/plants/TorchWood/PB10.gif</file>
     </qresource>
 </RCC>

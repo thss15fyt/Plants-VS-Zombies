@@ -3,8 +3,9 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QMovie>
 
-enum peaBallName{peaBall};
+enum peaBallName{peaBall, fireBall};
 
 class PeaBall : public QWidget
 {
@@ -18,6 +19,7 @@ public:
     int mSpeed;
     int ATK;
     QLabel* mLabel;
+    QMovie* mMovie;
 
     void mUpdate();
 signals:

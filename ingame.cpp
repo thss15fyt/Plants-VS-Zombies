@@ -71,7 +71,6 @@ void InGame::mShowZombieUpdate()
                 QSound::play(":/music/src/music/awooga.wav");
             p->show();
             mZombies[n - 1].append(p);
-            qDebug() << "in lawn" << n << "new a zombie, now size" << mZombies[n - 1].size();
             mShowZombies++;
             for(int i = n; i < 5; i++)
             {
@@ -137,10 +136,41 @@ void InGame::mPeaBallUpdate()
 {
     for(int i = 0; i < 5; i++)
     {
-        for(int j = 0; j < mPeaBall[i].length(); j++)
+        for(int j = 0; j < mPeaBall[i].size(); j++)
         {
-            mPeaBall[i][j]->mUpdate();
-            mPeaBallMeetZombieUpdate(mPeaBall[i][j]);
+            PeaBall* peaball = mPeaBall[i][j];
+            peaball->mUpdate();
+            mPeaBallMeetZombieUpdate(peaball);
+            if(peaball->mColumn < 9 && peaball->mName == peaBall)
+            {
+                if(peaball->mx >= FIELD_X + peaball->mColumn * BLOCK_W)
+                {
+                    peaball->mColumn++;
+                    if(!mBlock[peaball->mRow - 1][peaball->mColumn - 1]->isEmpty)
+                    {
+                        if(mPlants[peaball->mRow - 1][peaball->mColumn - 1]->mName == torchWood)
+                        {
+                            int row = peaball->mRow;
+                            int column = peaball->mColumn;
+                            //delete
+                            for(int i = 0; i < mPeaBall[row - 1].size(); i++)
+                            {
+                                if(mPeaBall[row - 1][i] == peaball)
+                                {
+                                    delete peaball;
+                                    mPeaBall[row - 1].remove(i);
+                                    break;
+                                }
+                            }
+                            //new a fire ball
+                            PeaBall* fireball;
+                            fireball = new PeaBall(fireBall, row, column, this);
+                            fireball->show();
+                            mPeaBall[row - 1].append(fireball);
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -221,7 +251,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             {
                 delete peaball;
                 mPeaBall[row - 1].remove(i);
-                i--;
+                break;
             }
         }
     }
@@ -230,9 +260,12 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
         int first = mFindFirstZombie(mZombies[row - 1], peaball->pos().x());
         if(first == -1 || first >= mZombies[row - 1].size() || mZombies[row - 1][first]->isExploded)
             return;
-        if((peaball->mx + PEABALL_WIDTH) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
+        if((peaball->mx + peaball->size().width()) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
-            QSound::play(":/music/src/music/splat2.wav");
+            if(peaball->mName == peaBall)
+                QSound::play(":/music/src/music/splat2.wav");
+            else if(peaball->mName == fireBall)
+                QSound::play(":/music/src/music/firepea.wav");
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
             //delete the peaBall
@@ -363,7 +396,7 @@ void InGame::mInitBlock()
 
 void InGame::mInitPlant()
 {
-    mPlantNum = 5;
+    mPlantNum = 6;
     isPlant = false;
     mPlantName = null;
 
@@ -389,15 +422,16 @@ void InGame::mInitPlantCostSun()
     mPlantCostSun[peaShooter] = 100;
     mPlantCostSun[wallNut] = 50;
     mPlantCostSun[cherryBomb] = 150;
+    mPlantCostSun[torchWood] = 175;
 }
 
 void InGame::mInitCard()
 {
     mCard = new Card*[mPlantNum - 1];
-    mCard[0] = new Card(1, sunFlower, this);
-    mCard[1] = new Card(2, peaShooter, this);
-    mCard[2] = new Card(3, wallNut, this);
-    mCard[3] = new Card(4, cherryBomb, this);
+    for(int i = 0; i < mPlantNum - 1; i++)
+    {
+        mCard[i] = new Card(i + 1, (plantName)(i + 1), this);
+    }
 }
 
 void InGame::mInitCursor()
@@ -419,6 +453,9 @@ void InGame::mInitCursor()
 
     mPlantCursorPixmap[cherryBomb] = new QPixmap(":/Plants/CherryBomb/src/plants/CherryBomb/0.gif");
     mPlantCursor[cherryBomb] = new QCursor(*mPlantCursorPixmap[cherryBomb]);
+
+    mPlantCursorPixmap[torchWood] = new QPixmap(":/Plants/TorchWood/src/plants/TorchWood/0.gif");
+    mPlantCursor[torchWood] = new QCursor(*mPlantCursorPixmap[torchWood]);
 }
 
 void InGame::mousePressEvent(QMouseEvent *e)

@@ -70,6 +70,11 @@ Card::Card(int index, plantName name, QWidget *parent) :
         mCostSun = 150;
         mCDTime = 0;//30;
         break;
+    case torchWood:
+        mCardLabel->setStyleSheet("background-image: url(:/Plants/TorchWood/src/plants/TorchWood/TorchwoodCard.png)");
+        mCostSun = 175;
+        mCDTime = 0;//7.5;
+        break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
 

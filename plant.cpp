@@ -56,6 +56,16 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
         QObject::connect(this, SIGNAL(mExplodeSignal(explosionName, int, int)), parent, SLOT(mExplodeSlot(explosionName, int, int)));
         break;
+    case torchWood:
+        this->setGeometry(FIELD_X + (column - 1) * BLOCK_W + BLOCK_W_TORCHWOOD_SPACE, FIELD_Y + (row - 1) * BLOCK_H + BLOCK_V_TORCHWOOD_SPACE,
+                          TORCHWOOD_W, TORCHWOOD_H);
+        mPlantLabel->setGeometry(0, 0, TORCHWOOD_W, TORCHWOOD_H);
+        mMovieNum = 1;
+        mMovieIndex = 1;
+        mSpecialCDTime = 0;
+        HP = 300;
+        mPlantCurrentMovie = new QMovie(":/Plants/TorchWood/src/plants/TorchWood/Torchwood.gif");
+        break;
     }
     QObject::connect(this, SIGNAL(mDeleteThis(int,int)), parent, SLOT(mDeletePlantSlot(int , int)));
     mPlantLabel->setMovie(mPlantCurrentMovie);
