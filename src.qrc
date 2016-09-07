@@ -44,8 +44,8 @@
         <file>src/music/WateryGraves.wav</file>
         <file>src/music/splat2.wav</file>
         <file>src/music/newspaper_rarrgh2.wav</file>
-        <file>src/music/firepea.wav</file>
         <file>src/music/winmusic~1.wav</file>
+        <file>src/music/ignite.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
@@ -103,6 +103,12 @@
         <file>2.txt</file>
         <file>1p.txt</file>
         <file>2p.txt</file>
+        <file>3.txt</file>
+        <file>3p.txt</file>
+        <file>4.txt</file>
+        <file>4p.txt</file>
+        <file>5.txt</file>
+        <file>5p.txt</file>
     </qresource>
     <qresource prefix="/Plants/CherryBomb">
         <file>src/plants/CherryBomb/0.gif</file>

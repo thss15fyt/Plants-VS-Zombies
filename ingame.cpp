@@ -321,7 +321,7 @@ bool InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             if(peaball->mName == peaBall)
                 QSound::play(":/music/src/music/splat2.wav");
             else if(peaball->mName == fireBall)
-                QSound::play(":/music/src/music/firepea.wav");
+                QSound::play(":/music/src/music/ignite.wav");
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
             //delete the peaBall
