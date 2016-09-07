@@ -44,5 +44,8 @@ void PVZ::mGameStateChangedSlot(gameStateType stateType)
 
 void PVZ::mGameWinSlot()
 {
-    mLevel++;
+    if(mLevel < 5)
+        mLevel++;
+    else
+        mLevel = 1;
 }

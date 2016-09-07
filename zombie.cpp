@@ -131,32 +131,51 @@ void Zombie::mZombieNormal()
     if(isExploded)
         return;
     mEatingSound->stop();
-    delete mZombieMovie;
     switch(mZombieName)
     {
     case zombie:
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
         break;
     case coneHeadZombie:
         if(mStateIndex == 1)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/ConeHeadZombie/src/zombies/ConeheadZombie/ConeheadZombie.gif");
+        }
         else if(mStateIndex == 2)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
+        }
         break;
     case bucketHeadZombie:
         if(mStateIndex == 1)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/BucketHeadZombie/src/zombies/BucketheadZombie/BucketheadZombie.gif");
+        }
         else if(mStateIndex == 2)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
+        }
         break;
     case poleVaultingZombie:
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/PoleVaultingZombieWalk.gif");
         break;
     case newspaperZombie:
         if(mStateIndex == 1)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/HeadWalk1.gif");
+        }
         else if(mStateIndex == 3)
+        {
+            delete mZombieMovie;
             mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/HeadWalk0.gif");
+        }
         break;
     }
     mZombieLabel->setMovie(mZombieMovie);
@@ -226,13 +245,21 @@ void Zombie::mBeExploded()
         return;
     isExploded = true;
     mEatingSound->stop();
-    delete mZombieMovie;
     if(mZombieName == zombie || mZombieName == coneHeadZombie || mZombieName == bucketHeadZombie)
+    {
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");
+    }
     else if(mZombieName == poleVaultingZombie)
+    {
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/BoomDie.gif");
+    }
     else if(mZombieName == newspaperZombie)
+    {
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/BoomDie.gif");
+    }
     mZombieLabel->setMovie(mZombieMovie);
     QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mAfterExplosionSlot()));
     mZombieMovie->start();
@@ -249,24 +276,27 @@ void Zombie::mNextMovie()
         return;
     if(mStateIndex < mStateNum)
         mStateIndex++;
-    delete mZombieMovie;
     switch(mZombieName)
     {
     case coneHeadZombie:
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
         break;
     case bucketHeadZombie:
+        delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/Zombie.gif");
         break;
     case poleVaultingZombie:
         if(mStateIndex == 2)
         {
+            delete mZombieMovie;
             QSound::play(":/music/src/music/polevault.wav");
             mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/PoleVaultingZombieJump.gif");
             QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
         }
         else if(mStateIndex == 3)
         {
+            delete mZombieMovie;
             mx -= 105;
             this->move(mx, my);
             mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/PoleVaultingZombieJump2.gif");
@@ -274,6 +304,7 @@ void Zombie::mNextMovie()
         }
         else if(mStateIndex == 4)
         {
+            delete mZombieMovie;
             mSpeed = 1;
             mZombieMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/PoleVaultingZombieWalk.gif");
         }
@@ -281,12 +312,14 @@ void Zombie::mNextMovie()
     case newspaperZombie:
         if(mStateIndex == 2)
         {
+            delete mZombieMovie;
             mSpeed = 0;
             mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/LostNewspaper.gif");
             QObject::connect(mZombieMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
         }
         else if(mStateIndex == 3)
         {
+            delete mZombieMovie;
             mSpeed = 3;
             QSound::play(":/music/src/music/newspaper_rarrgh2.wav");
             if(meetPlant)

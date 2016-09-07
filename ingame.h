@@ -47,6 +47,7 @@ private slots:
     void mDeletePlantSlot(int row, int column);
     void mReadySetPlantSlot();
     void mGameOverSlot();
+    void mRestartSlot();
 
     void mBlockClickedSlot(int);
     void mCardClickedSlot(plantName);
