@@ -1,7 +1,7 @@
 #include "peaball.h"
 #include "PeaBallSize.h"
 #include "FieldSize.h"
-
+#include <QDebug>
 PeaBall::PeaBall(peaBallName name, int row, int column, QWidget *parent) :
     QWidget(parent), mName(name), mRow(row), mColumn(column)
 {
@@ -18,6 +18,7 @@ PeaBall::PeaBall(peaBallName name, int row, int column, QWidget *parent) :
         ATK = 20;
         mx = FIELD_X + mColumn * BLOCK_W - 15;
         my = FIELD_Y + (mRow - 1) * BLOCK_H + PEABALL_V_SPACE;
+        mMovie = NULL;
         break;
     case fireBall:
         this->setGeometry(FIELD_X + mColumn * BLOCK_W - FIREBALL_H_SPACE, FIELD_Y + (mRow - 1) * BLOCK_H + FIREBALL_V_SPACE,
@@ -37,4 +38,9 @@ void PeaBall::mUpdate()
 {
     mx += mSpeed;
     this->move(QPoint(mx, my));
+}
+
+PeaBall::~PeaBall()
+{
+    delete mMovie;
 }

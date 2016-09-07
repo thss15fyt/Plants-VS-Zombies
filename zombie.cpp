@@ -225,6 +225,7 @@ void Zombie::mBeExploded()
     if(isExploded)
         return;
     isExploded = true;
+    mEatingSound->stop();
     delete mZombieMovie;
     if(mZombieName == zombie || mZombieName == coneHeadZombie || mZombieName == bucketHeadZombie)
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");

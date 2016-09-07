@@ -17,8 +17,8 @@
 #include <qalgorithms.h>
 #include <QDebug>
 
-InGame::InGame(QWidget *parent) :
-    QWidget(parent),
+InGame::InGame(int level, QWidget *parent) :
+    QWidget(parent), mLevel(level),
     ui(new Ui::InGame)
 {
     ui->setupUi(this);
@@ -42,6 +42,7 @@ InGame::InGame(QWidget *parent) :
     QObject::connect(this, SIGNAL(mGameStateChanged(gameStateType)),
                      parent, SLOT(mGameStateChangedSlot(gameStateType)));
     QObject::connect(this, SIGNAL(mGameOver()), this, SLOT(mGameOverSlot()));
+    QObject::connect(this, SIGNAL(mGameWin()), parent, SLOT(mGameWinSlot()));
 }
 
 /*****Update functions*****/
@@ -132,6 +133,9 @@ void InGame::mZombieUpdate()
                 {
                     ui->win->show();
                     ui->win->raise();
+                    mBGM->stop();
+                    emit mGameWin();
+                    QSound::play(":/music/src/music/winmusic~1.wav");
                 }
             }
         }
@@ -147,7 +151,11 @@ void InGame::mPeaBallUpdate()
         {
             PeaBall* peaball = mPeaBall[i][j];
             peaball->mUpdate();
-            mPeaBallMeetZombieUpdate(peaball);
+            if(mPeaBallMeetZombieUpdate(peaball))
+            {
+                j--;
+                continue;
+            }
             if(peaball->mColumn < 9 && peaball->mName == peaBall)
             {
                 if(peaball->mx >= FIELD_X + peaball->mColumn * BLOCK_W)
@@ -166,6 +174,7 @@ void InGame::mPeaBallUpdate()
                                 {
                                     delete peaball;
                                     mPeaBall[row - 1].remove(i);
+                                    j--;
                                     break;
                                 }
                             }
@@ -247,7 +256,7 @@ void InGame::mPlantFindZombieUpdate(Plant *plant)
     }
 }
 
-void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
+bool InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
 {
     int row = peaball->mRow;
     if(peaball->mx > 900)
@@ -258,7 +267,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
             {
                 delete peaball;
                 mPeaBall[row - 1].remove(i);
-                break;
+                return true;
             }
         }
     }
@@ -266,7 +275,7 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
     {
         int first = mFindFirstZombie(mZombies[row - 1], peaball->pos().x());
         if(first == -1 || first >= mZombies[row - 1].size() || mZombies[row - 1][first]->isExploded)
-            return;
+            return false;
         if((peaball->mx + peaball->size().width()) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
             if(peaball->mName == peaBall)
@@ -282,11 +291,12 @@ void InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
                 {
                     delete peaball;
                     mPeaBall[row - 1].remove(i);
-                    break;
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 void InGame::mCardUpdate()
@@ -337,7 +347,7 @@ void InGame::mInitZombieTime()
 {
     mShowZombies = 0;
     mDieZombies = 0;
-    QFile file(":/txt/1.txt");
+    QFile file(":/txt/" + QString::number(mLevel) + ".txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream stream(&file);
@@ -378,10 +388,26 @@ void InGame::mInitSpade()
 
 void InGame::mInitPreviewZombies()
 {
-    mPreviewZombie = new PreviewZombie*[3];
-    mPreviewZombie[0] = new PreviewZombie(QPoint(1100, 130), zombie, this);
-    mPreviewZombie[1] = new PreviewZombie(QPoint(1200, 200), coneHeadZombie, this);
-    mPreviewZombie[2] = new PreviewZombie(QPoint(1150, 400), bucketHeadZombie, this);
+    QFile file(":/txt/" + QString::number(mLevel) + "p.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream stream(&file);
+        QString str;
+        int mTotalPreviewZombies = stream.readLine().toInt();
+        mPreviewZombie = new PreviewZombie*[mTotalPreviewZombies];
+        for(int i = 0; i < mTotalPreviewZombies && !stream.atEnd(); i++)
+        {
+            zombieName name = (zombieName)stream.readLine().toInt();
+            int x = stream.readLine().toInt();
+            int y = stream.readLine().toInt();
+            mPreviewZombie[i] = new PreviewZombie(QPoint(x, y), name, this);
+        }
+        file.close();
+    }
+//    mPreviewZombie = new PreviewZombie*[3];
+//    mPreviewZombie[0] = new PreviewZombie(QPoint(1100, 130), zombie, this);
+//    mPreviewZombie[1] = new PreviewZombie(QPoint(1200, 200), coneHeadZombie, this);
+//    mPreviewZombie[2] = new PreviewZombie(QPoint(1150, 400), bucketHeadZombie, this);
 }
 
 void InGame::mInitBlock()
@@ -616,8 +642,7 @@ void InGame::on_menuButton_clicked()
 void InGame::on_win_clicked()
 {
     mTimer->stop();
-    mBGM->stop();
-    QSound::play(":/music/src/music/winmusic~1.wav");
+    emit mGameStateChanged(ingame);
 }
 
 

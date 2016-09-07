@@ -12,7 +12,7 @@ class PeaBall : public QWidget
     Q_OBJECT
 public:
     explicit PeaBall(peaBallName name, int row, int column, QWidget *parent = 0);
-
+    ~PeaBall();
     peaBallName mName;
     int mRow, mColumn;
     int mx, my;

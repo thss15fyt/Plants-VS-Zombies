@@ -100,6 +100,9 @@
     </qresource>
     <qresource prefix="/txt">
         <file>1.txt</file>
+        <file>2.txt</file>
+        <file>1p.txt</file>
+        <file>2p.txt</file>
     </qresource>
     <qresource prefix="/Plants/CherryBomb">
         <file>src/plants/CherryBomb/0.gif</file>

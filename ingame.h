@@ -27,12 +27,13 @@ class InGame : public QWidget
     Q_OBJECT
 
 public:
-    explicit InGame(QWidget *parent = 0);
+    explicit InGame(int level, QWidget *parent = 0);
     ~InGame();
 
 signals:
     void mGameStateChanged(gameStateType);
     void mGameOver();
+    void mGameWin();
 
 protected:
     void mousePressEvent(QMouseEvent*);
@@ -56,6 +57,7 @@ private slots:
 
 private:
     Ui::InGame *ui;
+    int mLevel;
     QTimer *mTimer;
     double mTime;    //one->16ms
     double mSunTime;
@@ -121,7 +123,7 @@ private:
     void mPeaBallUpdate();
     void mZombieMeetPlantUpdate();
     void mPlantFindZombieUpdate(Plant*);
-    void mPeaBallMeetZombieUpdate(PeaBall*&);
+    bool mPeaBallMeetZombieUpdate(PeaBall*&);
     void mCardUpdate();
     void mSunUpdate();
 

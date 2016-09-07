@@ -11,6 +11,7 @@ PVZ::PVZ(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setMouseTracking(true);
+    mLevel = 1;
     mGameState = welcome;
     mCurrentWidget = new Welcome(this);
     this->setCentralWidget(mCurrentWidget);
@@ -23,7 +24,7 @@ PVZ::~PVZ()
 
 void PVZ::mGameStateChangedSlot(gameStateType stateType)
 {
-    if(mGameState == stateType)
+    if(mGameState == stateType && mGameState != ingame)
         return;
     mGameState = stateType;
     delete mCurrentWidget;
@@ -36,7 +37,12 @@ void PVZ::mGameStateChangedSlot(gameStateType stateType)
         mCurrentWidget = new Help(this);
         break;
     case ingame:
-        mCurrentWidget = new InGame(this);
+        mCurrentWidget = new InGame(mLevel, this);
     }
     this->setCentralWidget(mCurrentWidget);
+}
+
+void PVZ::mGameWinSlot()
+{
+    mLevel++;
 }

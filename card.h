@@ -12,6 +12,7 @@ class Card : public QWidget
     Q_OBJECT
 public:
     explicit Card(int index, plantName name, QWidget *parent = 0);
+    ~Card();
     int mIndex;
     int mCostSun;
     double mCDTime;

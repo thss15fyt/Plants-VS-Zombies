@@ -20,6 +20,7 @@ private:
     Ui::PVZ *ui;
     QWidget *mCurrentWidget;
     gameStateType mGameState;  //current game status
+    int mLevel;
 
 /*******Functions*********/
 public:
@@ -31,6 +32,7 @@ signals:
 
 private slots:
     void mGameStateChangedSlot(gameStateType);
+    void mGameWinSlot();
 };
 
 #endif // PVZ_H

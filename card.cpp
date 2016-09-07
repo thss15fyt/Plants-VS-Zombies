@@ -89,3 +89,8 @@ void Card::mButtonClickedSlot()
     if(mLeftTime <= 0)
         emit mButtonClicked(mName);
 }
+
+Card::~Card()
+{
+    delete cd;
+}
