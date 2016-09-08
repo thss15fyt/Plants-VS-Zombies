@@ -46,6 +46,8 @@
         <file>src/music/newspaper_rarrgh2.wav</file>
         <file>src/music/winmusic~1.wav</file>
         <file>src/music/ignite.wav</file>
+        <file>src/music/potato_mine.wav</file>
+        <file>src/music/shieldhit.wav</file>
     </qresource>
     <qresource prefix="/Zombies/Zombie">
         <file>src/zombies/Zombie/0.gif</file>
@@ -152,5 +154,12 @@
         <file>src/plants/TorchWood/TorchwoodCard.png</file>
         <file>src/plants/TorchWood/0.gif</file>
         <file>src/plants/TorchWood/PB10.gif</file>
+    </qresource>
+    <qresource prefix="/Plants/PotatoMine">
+        <file>src/plants/PotatoMine/0.gif</file>
+        <file>src/plants/PotatoMine/PotatoMine_mashed.gif</file>
+        <file>src/plants/PotatoMine/PotatoMine.gif</file>
+        <file>src/plants/PotatoMine/PotatoMineCard.png</file>
+        <file>src/plants/PotatoMine/PotatoMineNotReady.gif</file>
     </qresource>
 </RCC>

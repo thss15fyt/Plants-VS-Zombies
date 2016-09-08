@@ -75,6 +75,11 @@ Card::Card(int index, plantName name, QWidget *parent) :
         mCostSun = 175;
         mCDTime = 0;//7.5;
         break;
+    case potatoMine:
+        mCardLabel->setStyleSheet("background-image: url(:/Plants/PotatoMine/src/plants/PotatoMine/PotatoMineCard.png)");
+        mCostSun = 25;
+        mCDTime = 0;//30;
+        break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
 

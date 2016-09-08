@@ -67,6 +67,18 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         HP = 300;
         mPlantCurrentMovie = new QMovie(":/Plants/TorchWood/src/plants/TorchWood/Torchwood.gif");
         break;
+    case potatoMine:
+        this->setGeometry(FIELD_X + (column - 1) * BLOCK_W + BLOCK_W_POTATOMINE_SPACE, FIELD_Y + (row - 1) * BLOCK_H + BLOCK_V_POTATOMINE_SPACE,
+                          POTATOMINE_W, POTATOMINE_H);
+        mPlantLabel->setGeometry(0, 0, POTATOMINE_W, POTATOMINE_H);
+        mMovieNum = 3;
+        mMovieIndex = 1;
+        mSpecialCDTime = 0;
+        HP = 300;
+        mPlantCurrentMovie = new QMovie(":/Plants/PotatoMine/src/plants/PotatoMine/PotatoMineNotReady.gif");
+        QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
+        QObject::connect(this, SIGNAL(mExplodeSignal(explosionName, int, int)), parent, SLOT(mExplodeSlot(explosionName, int, int)));
+        break;
     }
     QObject::connect(this, SIGNAL(mDeleteThis(int,int)), parent, SLOT(mDeletePlantSlot(int , int)));
     mPlantLabel->setMovie(mPlantCurrentMovie);
@@ -124,9 +136,21 @@ void Plant::mNextMovie()
             mPlantCurrentMovie = new QMovie(":/Plants/CherryBomb/src/plants/CherryBomb/Boom.gif");
             QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mDeleteThisSlot()));
             QSound::play(":/music/src/music/cherrybomb.wav");
-            qDebug() << "boom!";
         }
         break;
+    case potatoMine:
+        if(mMovieIndex == 2)
+        {
+            delete mPlantCurrentMovie;
+            mPlantCurrentMovie = new QMovie(":/Plants/PotatoMine/src/plants/PotatoMine/PotatoMine.gif");
+        }
+        else if(mMovieIndex == 3)
+        {
+            delete mPlantCurrentMovie;
+            mPlantCurrentMovie = new QMovie(":/Plants/PotatoMine/src/plants/PotatoMine/PotatoMine_mashed.gif");
+            QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mDeleteThisSlot()));
+            QSound::play(":/music/src/music/potato_mine.wav");
+        }
     }
     mPlantLabel->setMovie(mPlantCurrentMovie);
     mPlantCurrentMovie->start();
@@ -156,6 +180,10 @@ void Plant::mPlantExplodeSlot()
     {
     case cherryBomb:
         emit mExplodeSignal(cherryBombExplosion, mRow, mColumn);
+        break;
+    case potatoMine:
+        mNextMovie();
+        emit mExplodeSignal(potatoMineExplosion, mRow, mColumn);
         break;
     }
 }

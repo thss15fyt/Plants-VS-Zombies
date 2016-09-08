@@ -6,8 +6,8 @@
 #include <QMovie>
 #include "sun.h"
 
-enum plantName{null, sunFlower, peaShooter, wallNut, cherryBomb, torchWood};
-enum explosionName{cherryBombExplosion};
+enum plantName{null, sunFlower, peaShooter, wallNut, cherryBomb, torchWood, potatoMine};
+enum explosionName{cherryBombExplosion, potatoMineExplosion};
 
 class Plant : public QWidget
 {
