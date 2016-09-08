@@ -29,6 +29,8 @@ public:
     zombieName mZombieName;
     bool meetPlant;
     bool isExploded;
+    bool isFrozen;
+    double mFrozenTime;
     QSound* mEatingSound;
 
     void mZombieNormal();

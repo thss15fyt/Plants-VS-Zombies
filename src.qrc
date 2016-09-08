@@ -169,4 +169,10 @@
         <file>src/zombies/FlagZombie/FlagZombieLostHead.gif</file>
         <file>src/zombies/FlagZombie/FlagZombieLostHeadAttack.gif</file>
     </qresource>
+    <qresource prefix="/Plants/SnowPea">
+        <file>src/plants/SnowPea/0.gif</file>
+        <file>src/plants/SnowPea/SnowPea.gif</file>
+        <file>src/plants/SnowPea/SnowPeaCard.png</file>
+        <file>src/plants/SnowPea/SnowBall.png</file>
+    </qresource>
 </RCC>

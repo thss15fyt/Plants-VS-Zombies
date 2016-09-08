@@ -79,6 +79,16 @@ Plant::Plant(int row, int column, plantName name, QWidget *parent) :
         QObject::connect(mPlantCurrentMovie, SIGNAL(finished()), this, SLOT(mNextMovie()));
         QObject::connect(this, SIGNAL(mExplodeSignal(explosionName, int, int)), parent, SLOT(mExplodeSlot(explosionName, int, int)));
         break;
+    case snowPea:
+        this->setGeometry(FIELD_X + (column - 1) * BLOCK_W + BLOCK_W_PEASHOOTER_SPACE, FIELD_Y + (row - 1) * BLOCK_H,
+                          PEASHOOTER_W, PEASHOOTER_H);
+        mPlantLabel->setGeometry(0, 0, PEASHOOTER_W, PEASHOOTER_H);
+        mMovieNum = 1;
+        mMovieIndex = 1;
+        mSpecialCDTime = 1.4;   //fire a peaBall
+        HP = 300;
+        mPlantCurrentMovie = new QMovie(":/Plants/SnowPea/src/plants/SnowPea/SnowPea.gif");
+        break;
     }
     QObject::connect(this, SIGNAL(mDeleteThis(int,int)), parent, SLOT(mDeletePlantSlot(int , int)));
     mPlantLabel->setMovie(mPlantCurrentMovie);
@@ -102,6 +112,9 @@ void Plant::mUpdate()
         break;
     case wallNut:
         mWallNutUpdate();
+        break;
+    case snowPea:
+        mSnowPeaUpdate();
         break;
     }
     //-HP
@@ -172,6 +185,12 @@ void Plant::mWallNutUpdate()
     if((mMovieIndex == 1 && HP <= 2666) ||
             (mMovieIndex == 2 && HP <= 1333))
         mNextMovie();
+}
+
+void Plant::mSnowPeaUpdate()
+{
+    if(mSpecialCDTime > 0)
+        mSpecialCDTime -= 0.064;
 }
 
 void Plant::mPlantExplodeSlot()

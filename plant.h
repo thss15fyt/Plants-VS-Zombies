@@ -6,7 +6,7 @@
 #include <QMovie>
 #include "sun.h"
 
-enum plantName{null, sunFlower, peaShooter, wallNut, cherryBomb, torchWood, potatoMine};
+enum plantName{null, sunFlower, peaShooter, wallNut, cherryBomb, torchWood, potatoMine, snowPea};
 enum explosionName{cherryBombExplosion, potatoMineExplosion};
 
 class Plant : public QWidget
@@ -31,6 +31,7 @@ public:
     void mSunFlowerUpdate();
     void mPeaShooterUpdate();
     void mWallNutUpdate();
+    void mSnowPeaUpdate();
 
 signals:
     void mExplodeSignal(explosionName, int row, int column);

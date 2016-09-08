@@ -1,10 +1,11 @@
 #include "zombie.h"
 #include "ZombieSize.h"
 #include "FieldSize.h"
+#include <qDebug>
 
 Zombie::Zombie(int row, zombieName name, QWidget *parent) :
-    QWidget(parent), mRow(row), mColumn(10),
-    mZombieName(name), meetPlant(false), isExploded(false)
+    QWidget(parent), mRow(row), mColumn(10), mFrozenTime(0),
+    mZombieName(name), meetPlant(false), isExploded(false), isFrozen(false)
 {
     this->setAttribute(Qt::WA_TransparentForMouseEvents);
     mZombieLabel = new QLabel(this);
@@ -85,7 +86,7 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         mHSpace = ZOMBIE_H_SPACE;
         ATK = 6;
         HP = 270;
-        mSpeed = 1;
+        mSpeed = 1.5;
         break;
     }
     mZombieLabel->setMovie(mZombieMovie);
@@ -100,8 +101,20 @@ void Zombie::mUpdate()
         return;
     if(!meetPlant)
     {
+        qDebug() << "mx" << mx;
         mx -= mSpeed;
+        qDebug() << "mx after" << mx;
         move(QPoint(mx, my));
+    }
+    if(isFrozen)
+    {
+        if(mFrozenTime >= 0)
+            mFrozenTime -= 0.064;
+        else if(mFrozenTime < 0)
+        {
+            isFrozen = false;
+            mSpeed *= 2;
+        }
     }
     switch(mZombieName)
     {

@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QMovie>
 
-enum peaBallName{peaBall, fireBall};
+enum peaBallName{peaBall, fireBall, snowBall};
 
 class PeaBall : public QWidget
 {

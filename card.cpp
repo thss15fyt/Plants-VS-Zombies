@@ -80,6 +80,11 @@ Card::Card(int index, plantName name, QWidget *parent) :
         mCostSun = 25;
         mCDTime = 30;
         break;
+    case snowPea:
+        mCardLabel->setStyleSheet("background-image: url(:/Plants/SnowPea/src/plants/SnowPea/SnowPeaCard.png)");
+        mCostSun = 175;
+        mCDTime = 7.5;
+        break;
     }
     mCostSunLabel->setText(QString::number(mCostSun));
 
