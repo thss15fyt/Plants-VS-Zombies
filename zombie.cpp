@@ -101,9 +101,7 @@ void Zombie::mUpdate()
         return;
     if(!meetPlant)
     {
-        qDebug() << "mx" << mx;
         mx -= mSpeed;
-        qDebug() << "mx after" << mx;
         move(QPoint(mx, my));
     }
     if(isFrozen)

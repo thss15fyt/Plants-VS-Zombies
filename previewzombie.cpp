@@ -28,6 +28,21 @@ PreviewZombie::PreviewZombie(QPoint beginPoint, zombieName name, QWidget *parent
         this->setGeometry(beginPoint.x(), beginPoint.y(), ZOMBIE_W, ZOMBIE_H);
         mShowLabel->setGeometry(0, 0, ZOMBIE_W, ZOMBIE_H);
         break;
+    case poleVaultingZombie:
+        mShowMovie = new QMovie(":/Zombies/PpleVaultingZombie/src/zombies/PoleVaultingZombie/1.gif");
+        this->setGeometry(beginPoint.x(), beginPoint.y(), POLE_ZOMBIE_W, POLE_ZOMBIE_H);
+        mShowLabel->setGeometry(0, 0, POLE_ZOMBIE_W, POLE_ZOMBIE_H);
+        break;
+    case newspaperZombie:
+        mShowMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/1.gif");
+        this->setGeometry(beginPoint.x(), beginPoint.y(), NEWSPAPER_ZOMBIE_W, NEWSPAPER_ZOMBIE_H);
+        mShowLabel->setGeometry(0, 0, NEWSPAPER_ZOMBIE_W, NEWSPAPER_ZOMBIE_H);
+        break;
+    case flagZombie:
+        mShowMovie = new QMovie(":/Zombies/FlagZombie/src/zombies/FlagZombie/1.gif");
+        this->setGeometry(beginPoint.x(), beginPoint.y(), ZOMBIE_W, ZOMBIE_H);
+        mShowLabel->setGeometry(0, 0, ZOMBIE_W, ZOMBIE_H);
+        break;
     }
 
     mShowLabel->setMovie(mShowMovie);

@@ -317,11 +317,11 @@ bool InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
                 QSound::play(":/music/src/music/ignite.wav");
             else if(peaball->mName == snowBall)
             {
+                QSound::play(":/music/src/music/splat2.wav");
                 if(!mZombies[row - 1][first]->isFrozen)
                     mZombies[row - 1][first]->mSpeed /= 2;
                 mZombies[row - 1][first]->isFrozen = true;
                 mZombies[row - 1][first]->mFrozenTime = 10;
-                qDebug() << "******************speed:" << mZombies[row - 1][first]->mSpeed;
             }
             //zombie -HP
             mZombies[row - 1][first]->HP -= peaball->ATK;
@@ -488,7 +488,7 @@ void InGame::mInitPlant()
 
 void InGame::mInitPlantCostSun()
 {
-    mSunNum = 9999;
+    mSunNum = 50;
     ui->sunNum->setText(QString::number(mSunNum));
 
     mPlantCostSun = new int[mPlantNum];
