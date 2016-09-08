@@ -162,4 +162,11 @@
         <file>src/plants/PotatoMine/PotatoMineCard.png</file>
         <file>src/plants/PotatoMine/PotatoMineNotReady.gif</file>
     </qresource>
+    <qresource prefix="/Zombies/FlagZombie">
+        <file>src/zombies/FlagZombie/1.gif</file>
+        <file>src/zombies/FlagZombie/FlagZombie.gif</file>
+        <file>src/zombies/FlagZombie/FlagZombieAttack.gif</file>
+        <file>src/zombies/FlagZombie/FlagZombieLostHead.gif</file>
+        <file>src/zombies/FlagZombie/FlagZombieLostHeadAttack.gif</file>
+    </qresource>
 </RCC>

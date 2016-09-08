@@ -202,6 +202,32 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="level">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>480</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>28</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#level
+{
+	color: white;
+}</string>
+   </property>
+   <property name="text">
+    <string>level</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

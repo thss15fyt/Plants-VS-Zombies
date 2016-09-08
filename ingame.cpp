@@ -237,6 +237,14 @@ void InGame::mZombieMeetPlantUpdate()
                     zombie->meetPlant = false;
                     zombie->mZombieNormal();
                 }
+                else
+                {
+                    if(mPlants[zombie->mRow - 1][zombie->mColumn - 1]->mName == potatoMine &&
+                            mPlants[zombie->mRow - 1][zombie->mColumn - 1]->mMovieIndex == 2)
+                    {
+                        mPlants[zombie->mRow - 1][zombie->mColumn - 1]->mPlantExplodeSlot();
+                    }
+                }
             }
         }
     }
@@ -287,7 +295,7 @@ bool InGame::mPeaBallMeetZombieUpdate(PeaBall *&peaball)
         }
         if((peaball->mx + peaball->size().width()) >= (mZombies[row - 1][first]->mx + mZombies[row - 1][first]->mHSpace))  //peaBall meets Zombie!
         {
-            if(mZombies[row - 1][first]->mZombieName == bucketHeadZombie && mZombies[row - 1][first]->mStateIndex == 2)
+            if(mZombies[row - 1][first]->mZombieName == bucketHeadZombie && mZombies[row - 1][first]->mStateIndex == 1)
                 QSound::play(":/music/src/music/shieldhit.wav");
              else if(peaball->mName == peaBall)
                 QSound::play(":/music/src/music/splat2.wav");
@@ -335,7 +343,7 @@ void InGame::mCardUpdate()
 void InGame::mSunUpdate()
 {
     mSunTime += 0.064;
-    if(mSunTime >= 5)
+    if(mSunTime >= 5.5)
     {
         mSunTime = 0;
         mDropSunSlot();
@@ -346,6 +354,8 @@ void InGame::mSunUpdate()
 
 void InGame::mInitOtherUi()
 {
+    ui->level->setText("Level " + QString::number(mLevel));
+
     ui->gameOver->hide();
     mReadyMovie = new QMovie(":/src/interface/readySetPlants.gif");
     ui->readySetPlant->setMovie(mReadyMovie);
@@ -456,7 +466,7 @@ void InGame::mInitPlant()
 
 void InGame::mInitPlantCostSun()
 {
-    mSunNum = 9999;
+    mSunNum = 50;
     ui->sunNum->setText(QString::number(mSunNum));
 
     mPlantCostSun = new int[mPlantNum];
@@ -686,6 +696,7 @@ void InGame::mBeginMove()
 
     //if there's a new move, it sends the signal
     QObject::connect(bgMove, SIGNAL(finished()), this, SLOT(mReadySetPlantSlot()));
+    QObject::connect(bgMove, SIGNAL(finished()), ui->level, SLOT(hide()));
 }
 
 int InGame::mFindFirstZombie(QVector<Zombie*> v, int x)
@@ -778,7 +789,6 @@ void InGame::mExplodeSlot(explosionName name, int row, int column)
         rect = new QRect(FIELD_X + (column - 1) * BLOCK_W - (BLOCK_W/2),
                          FIELD_Y + (row - 1) * BLOCK_H,
                          BLOCK_W * 2, BLOCK_H);
-        qDebug() << "potato boom!";
         break;
     }
     for(int i = 0; i < 5; i++)

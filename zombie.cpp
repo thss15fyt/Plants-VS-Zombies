@@ -75,6 +75,18 @@ Zombie::Zombie(int row, zombieName name, QWidget *parent) :
         HP = 420;
         mSpeed = 1;
         break;
+    case flagZombie:
+        this->setGeometry(900, FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE, ZOMBIE_W, ZOMBIE_H);
+        my = FIELD_Y + (mRow - 1) * BLOCK_H - ZOMBIE_V_SPACE;
+        mZombieLabel->setGeometry(0, 0, ZOMBIE_W, ZOMBIE_H);
+        mZombieMovie = new QMovie(":/Zombies/FlagZombie/src/zombies/FlagZombie/FlagZombie.gif");
+        mStateNum = 1;
+        mStateIndex = 1;
+        mHSpace = ZOMBIE_H_SPACE;
+        ATK = 6;
+        HP = 270;
+        mSpeed = 1;
+        break;
     }
     mZombieLabel->setMovie(mZombieMovie);
     mZombieMovie->start();    
@@ -177,6 +189,10 @@ void Zombie::mZombieNormal()
             mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/HeadWalk0.gif");
         }
         break;
+    case flagZombie:
+        delete mZombieMovie;
+        mZombieMovie = new QMovie(":/Zombies/FlagZombie/src/zombies/FlagZombie/FlagZombie.gif");
+        break;
     }
     mZombieLabel->setMovie(mZombieMovie);
     mZombieMovie->start();
@@ -233,6 +249,10 @@ void Zombie::mZombieAttack()
             mZombieMovie = new QMovie(":/Zombies/NewspaperZombie/src/zombies/NewspaperZombie/HeadAttack0.gif");
         }
         break;
+    case flagZombie:
+        delete mZombieMovie;
+        mZombieMovie = new QMovie(":/Zombies/FlagZombie/src/zombies/FlagZombie/FlagZombieAttack.gif");
+        break;
     }
     mZombieLabel->setMovie(mZombieMovie);
     mZombieMovie->start();
@@ -245,7 +265,7 @@ void Zombie::mBeExploded()
         return;
     isExploded = true;
     mEatingSound->stop();
-    if(mZombieName == zombie || mZombieName == coneHeadZombie || mZombieName == bucketHeadZombie)
+    if(mZombieName == zombie || mZombieName == coneHeadZombie || mZombieName == bucketHeadZombie || mZombieName == flagZombie)
     {
         delete mZombieMovie;
         mZombieMovie = new QMovie(":/Zombies/Zombie/src/zombies/Zombie/BoomDie.gif");
