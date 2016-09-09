@@ -1,3 +1,23 @@
+/*********************************************************************************
+ *
+ *  class name: Plant
+ *
+ *  now 7 kinds of plant(see the enum type: plantName)
+ *
+ *  main properties:
+ *      mName, mRow, mColumn,
+ *      HP, ATK, ATKofZombie,
+ *      mMovieIndex, mMovieNum
+ *
+ *  main functions:
+ *      mUpdate: change HP, mMovieIndex, mSpecialCD,
+ *               special update of each kind
+ *      mNextMovie: mMovieIndex++ and then set a new movie
+ *
+ *  maybe better to be a base class and create several classes inherited from it,
+ *  so that it's easy to create more plants with special uses
+ *
+ ********************************************************************************/
 #ifndef PLANT_H
 #define PLANT_H
 

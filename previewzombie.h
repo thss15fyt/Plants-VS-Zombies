@@ -1,3 +1,12 @@
+/************************************************
+ *
+ *  class name: PreviewZombie
+ *  class of zombies show at the beginning of game
+ *
+ *  need: pos, zombie name
+ *         to create a preview zombie
+ *
+ *************************************************/
 #ifndef PREVIEWZOMBIE_H
 #define PREVIEWZOMBIE_H
 

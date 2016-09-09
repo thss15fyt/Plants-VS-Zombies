@@ -1,3 +1,10 @@
+/************************************
+ *
+ *  ui class: help
+ *  a help scene with a go-back button
+ *
+ *************************************/
+
 #ifndef HELP_H
 #define HELP_H
 

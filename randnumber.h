@@ -1,3 +1,9 @@
+/*********************************************
+ *
+ *  class name: RandNumber
+ *  create a random number between min and max
+ *
+ *********************************************/
 #ifndef RANDNUMBER_H
 #define RANDNUMBER_H
 

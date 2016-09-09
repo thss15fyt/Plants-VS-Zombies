@@ -1,3 +1,10 @@
+/***************************************
+ *
+ *  class name: Block
+ *  used to plant&remove plants in each block
+ *
+ ****************************************/
+
 #ifndef Q_BLOCK_H
 #define Q_BLOCK_H
 

@@ -1,3 +1,9 @@
+/*************************************
+ *
+ *  store the size of peaball
+ *
+ *************************************/
+
 #ifndef PEABALLSIZE_H
 #define PEABALLSIZE_H
 

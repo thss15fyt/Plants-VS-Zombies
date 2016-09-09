@@ -1,3 +1,10 @@
+/************************************
+ *
+ *  class name: Card
+ *  plant cards in the top bar
+ *  with CD animation
+ *
+ ************************************/
 #ifndef CARD_H
 #define CARD_H
 

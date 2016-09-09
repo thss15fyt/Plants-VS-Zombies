@@ -1,3 +1,15 @@
+/************************************************************
+ *
+ *  ui class: Welcome
+ *  the welcome scene of the game, the default scene of PVZ
+ *
+ *  nearly all the items are created in the design mode
+ *  except: BGM, zombieHand
+ *
+ *  now avaliable button: adventure, help, quit
+ *
+ *************************************************************/
+
 #ifndef WELCOME_H
 #define WELCOME_H
 

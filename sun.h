@@ -1,3 +1,12 @@
+/*********************************************
+ *
+ *  class name: Sun
+ *  sun in the game, used to buy plants
+ *
+ *  2 kinds: dropped and produced
+ *
+ *******************************************/
+
 #ifndef SUN_H
 #define SUN_H
 

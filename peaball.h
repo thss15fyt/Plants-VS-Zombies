@@ -1,3 +1,11 @@
+/****************************************
+ *
+ *  class name: peaball
+ *  created by peaShooter and snowPea
+ *  three states:
+ *      normal, fire, snow
+ *
+ *****************************************/
 #ifndef PEABALL_H
 #define PEABALL_H
 

@@ -1,3 +1,8 @@
+/************************************
+ *
+ *  store the size data of zombies
+ *
+ **************************************/
 #ifndef ZOMBIESIZE_H
 #define ZOMBIESIZE_H
 

@@ -1,3 +1,23 @@
+/*********************************************************
+ *
+ *  class name: zombie
+ *
+ *  now 6 zombies(see the enum type zombieName below
+ *
+ *  main properties:
+ *      mRow, mColumn, mZombieName
+ *      mSpeed, ATK, HP,
+ *      mStateNum, mStateIndex
+ *
+ *  main functions:
+ *      mUpdate: move, change HP and change state index
+ *      mNextMovie: mStateIndex++ and set a new movie
+ *      mZombieNormal: set state to normal state
+ *      mZombieAttack: set state to attack state
+ *      mBeExploded: set state to exploded state
+ *
+ **********************************************************/
+
 #ifndef Q_ZOMBIE_H
 #define Q_ZOMBIE_H
 

@@ -1,3 +1,8 @@
+/******************************************************
+ *
+ *  store the size data of field, blocks and card bar
+ *
+ *****************************************************/
 #ifndef FIELDSIZE_H
 #define FIELDSIZE_H
 
